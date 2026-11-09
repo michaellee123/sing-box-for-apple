@@ -200,11 +200,11 @@ public struct SettingView: View {
                             Text("Configuration")
                         }
                     }
-                    FormLink(destination: URL(string: String("https://github.com/SagerNet/sing-box"))!) {
+                    FormLink(destination: URL(string: String("https://github.com/michaellee123/sing-box-for-apple"))!) {
                         Label("Source Code", systemImage: "pills.fill")
                     }
                     .contextMenu {
-                        Link(destination: URL(string: String("https://github.com/SagerNet/sing-box/releases"))!) {
+                        Link(destination: URL(string: String("https://github.com/michaellee123/sing-box-for-apple/releases"))!) {
                             Text("Releases")
                         }
                     }

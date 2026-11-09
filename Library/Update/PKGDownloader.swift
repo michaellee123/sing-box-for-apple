@@ -2,7 +2,7 @@
 
     import Foundation
 
-    public enum PKGDownloader {
+    public enum UpdateDownloader {
         public static func download(
             from url: String,
             expectedSize: Int64,
@@ -22,9 +22,8 @@
                 return destination
             }
 
-            // Clean old PKG files
             if let contents = try? FileManager.default.contentsOfDirectory(at: updatesDir, includingPropertiesForKeys: nil) {
-                for file in contents where file.pathExtension == "pkg" && file.lastPathComponent != filename {
+                for file in contents where file.pathExtension == "dmg" && file.lastPathComponent != filename {
                     try? FileManager.default.removeItem(at: file)
                 }
             }

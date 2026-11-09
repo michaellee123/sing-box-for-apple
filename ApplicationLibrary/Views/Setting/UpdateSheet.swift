@@ -7,7 +7,6 @@
 
     public struct UpdateSheet: View {
         @ObservedObject var updateManager: UpdateManager
-        @EnvironmentObject private var environments: ExtensionEnvironments
 
         public init(updateManager: UpdateManager) {
             self.updateManager = updateManager
@@ -19,6 +18,10 @@
                     .font(.headline)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Text("New version available: \(updateManager.updateInfo?.versionName ?? "")")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                Text("After downloading, drag SFM into Applications to finish the update.")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -36,12 +39,7 @@
                 }
 
                 if updateManager.isDownloading {
-                    if updateManager.isInstalling {
-                        ProgressView()
-                            .progressViewStyle(.linear)
-                    } else {
-                        ProgressView(value: updateManager.downloadProgress)
-                    }
+                    ProgressView(value: updateManager.downloadProgress)
                 }
 
                 HStack(spacing: 12) {
@@ -61,9 +59,9 @@
                     .keyboardShortcut(.escape, modifiers: [])
                     .disabled(updateManager.isDownloading)
 
-                    Button("Update") {
+                    Button("Download DMG") {
                         Task {
-                            await updateManager.downloadAndInstall(environments: environments)
+                            await updateManager.downloadDMG()
                         }
                     }
                     .keyboardShortcut(.defaultAction)

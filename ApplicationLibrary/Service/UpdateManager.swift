@@ -5,7 +5,6 @@
     import Libbox
     import Library
     import os
-    import Security
     import SwiftUI
 
     private let logger = Logger(category: "UpdateManager")
@@ -18,7 +17,6 @@
         @Published public var isUpdateSheetPresented = false
         @Published public var isChecking = false
         @Published public var isDownloading = false
-        @Published public var isInstalling = false
         @Published public var downloadProgress: Double = 0
         @Published public var alert: AlertState?
 
@@ -80,77 +78,30 @@
             isUpdateSheetPresented = false
         }
 
-        public func downloadAndInstall(environments: ExtensionEnvironments) async {
+        public func downloadDMG() async {
             guard let updateInfo else { return }
 
             isDownloading = true
-            isInstalling = false
             downloadProgress = 0
             alert = nil
 
             do {
-                let pkgURL = try await PKGDownloader.download(from: updateInfo.downloadURL, expectedSize: updateInfo.fileSize) { [weak self] progress in
+                let dmgURL = try await UpdateDownloader.download(from: updateInfo.downloadURL, expectedSize: updateInfo.fileSize) { [weak self] progress in
                     Task { @MainActor in
                         self?.downloadProgress = progress
                     }
                 }
 
-                let helperAvailable = await Task.detached { () -> Bool in
-                    guard HelperServiceManager.rootHelperStatus == .enabled else {
-                        return false
-                    }
-                    guard let helperVersion = try? ShellHelperClient.shared.getVersion() else {
-                        return false
-                    }
-                    return helperVersion == Bundle.main.version
-                }.value
-
-                isInstalling = true
-
-                var authRef: AuthorizationRef?
-                if !helperAvailable {
-                    authRef = try await PKGInstaller.authorize()
-                }
-
-                var profile = environments.extensionProfile
-                if profile == nil {
-                    await environments.reload()
-                    profile = environments.extensionProfile
-                }
-                if let profile, profile.status.isConnected {
-                    try? await profile.stop()
-                    var waitCount = 0
-                    while profile.status != .disconnected, waitCount < 10 {
-                        try? await Task.sleep(nanoseconds: 500_000_000)
-                        waitCount += 1
-                    }
-                }
-
-                if helperAvailable {
-                    try await Task.detached {
-                        try RootHelperClient.shared.installUpdatePackage(pkgPath: pkgURL.path)
-                    }.value
-                } else {
-                    let authorization = authRef!
-                    try await Task.detached {
-                        try PKGInstaller.install(pkgPath: pkgURL.path, authorization: authorization)
-                    }.value
-                }
-
-                do {
-                    try PKGInstaller.scheduleInstalledApplicationRelaunch()
-                } catch {
-                    logger.warning("relaunch failed: \(error.localizedDescription)")
-                }
-                exit(0)
-            } catch PKGInstallerError.authorizationCancelled {
                 isDownloading = false
-                isInstalling = false
+                NSWorkspace.shared.open(dmgURL)
+                alert = AlertState(
+                    title: String(localized: "Download Complete"),
+                    message: String(localized: "The DMG has been opened. Quit SFM and drag it into Applications to finish the update.")
+                )
             } catch {
                 isDownloading = false
-                isInstalling = false
-                logger.error("update failed: \(error.localizedDescription)")
-                alert = AlertState(action: "install update", error: error)
+                logger.error("update download failed: \(error.localizedDescription)")
+                alert = AlertState(action: "download update", error: error)
             }
         }
 

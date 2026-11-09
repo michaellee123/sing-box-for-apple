@@ -3,7 +3,7 @@ import Foundation
 import Libbox
 
 public enum GitHubUpdateChecker {
-    private static let releasesURL = "https://api.github.com/repos/SagerNet/sing-box/releases"
+    private static let releasesURL = "https://api.github.com/repos/michaellee123/sing-box-for-apple/releases"
     private static let minimumSemver = "0.0.0-0"
 
     public static func checkAsync(track: UpdateTrack, githubToken: String = "", force: Bool = false) async throws -> UpdateInfo? {
@@ -41,7 +41,7 @@ public enum GitHubUpdateChecker {
             if track == .stable, release.prerelease {
                 continue
             }
-            guard let pkgAsset = findPKGAsset(in: release.assets) else { continue }
+            guard let dmgAsset = findDMGAsset(in: release.assets) else { continue }
 
             let version = release.tagName.hasPrefix("v")
                 ? String(release.tagName.dropFirst())
@@ -60,7 +60,7 @@ public enum GitHubUpdateChecker {
 
             bestRelease = release
             bestVersion = version
-            bestAsset = pkgAsset
+            bestAsset = dmgAsset
         }
 
         guard let release = bestRelease,
@@ -80,21 +80,21 @@ public enum GitHubUpdateChecker {
         )
     }
 
-    private static func findPKGAsset(in assets: [GitHubAsset]) -> GitHubAsset? {
-        let pkgAssets = assets.filter { $0.name.hasSuffix(".pkg") }
+    private static func findDMGAsset(in assets: [GitHubAsset]) -> GitHubAsset? {
+        let dmgAssets = assets.filter { $0.name.hasSuffix(".dmg") }
 
-        let preferred = preferredPKGVariant()
+        let preferred = preferredDMGVariant()
 
-        if let match = pkgAssets.first(where: { $0.name.contains(preferred) }) {
+        if let match = dmgAssets.first(where: { $0.name.contains(preferred) }) {
             return match
         }
-        if let universal = pkgAssets.first(where: { $0.name.contains("Universal") }) {
+        if let universal = dmgAssets.first(where: { $0.name.contains("Universal") }) {
             return universal
         }
-        return pkgAssets.first
+        return dmgAssets.first
     }
 
-    private static func preferredPKGVariant() -> String {
+    private static func preferredDMGVariant() -> String {
         if let hostSupportsArm64 = hostSupportsArm64() {
             return hostSupportsArm64 ? "Apple" : "Intel"
         }
