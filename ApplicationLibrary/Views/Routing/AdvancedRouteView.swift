@@ -167,7 +167,7 @@ public struct AdvancedRouteView: View {
     private static let excludedModes = ["全球直连"]
 
     private var displayModes: [String] {
-        var modes = [ProfileConfigPatcher.preferredClashMode]
+        var modes = [ProfileConfigPatcher.preferredClashMode, ProfileConfigPatcher.whitelistClashMode]
         for mode in profileModes + liveModes {
             let trimmed = mode.trimmingCharacters(in: .whitespacesAndNewlines)
             guard !trimmed.isEmpty, !modes.contains(trimmed), !Self.excludedModes.contains(trimmed) else { continue }
@@ -218,8 +218,8 @@ public struct AdvancedRouteView: View {
     }
 
     private static let helpTopics: [HelpTopic] = [
-        HelpTopic("优先级", "强制放行最高，其次是强制接管，然后是模式（智能首选或全局代理），最后由智能分组分流。规则改动保存后，重新连接才会生效。"),
-        HelpTopic("模式", "默认是智能首选。点选整行即可切换，下次连接也继续用。"),
+        HelpTopic("优先级", "强制放行最高，其次是强制接管，然后是模式（智能首选、全局代理或白名单），最后由智能分组分流。规则改动保存后，重新连接才会生效。"),
+        HelpTopic("模式", "默认是智能首选。白名单只代理上方强制接管的应用和域名，其余流量全部直连。点选整行即可切换，下次连接也继续用。"),
         HelpTopic("按域名强制接管", "这些域名一定走代理。可以直接粘贴网址，会自动识别域名。默认按后缀匹配，example.com 包含所有子域名。full: 只匹配完整域名，keyword: 关键字，regex: 正则。"),
         HelpTopic("按域名强制放行", "这些域名一定直连，优先级高于模式和智能分组。可以直接粘贴网址，会自动识别域名。"),
         HelpTopic("按 IP 段强制放行", "填写 IP 或 CIDR，例如 192.168.1.0/24、10.0.0.0/8、2001:db8::/32。不写掩码时按单个地址处理（IPv4 /32，IPv6 /128）。命中后一定直连，优先级最高。"),

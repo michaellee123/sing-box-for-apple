@@ -168,6 +168,33 @@
             reply(FileHandle(fileDescriptor: fd, closeOnDealloc: false), nil)
         }
 
+        func findConnectionOwner(
+            ipProtocol: Int32,
+            sourceAddress: String,
+            sourcePort: Int32,
+            destinationAddress: String,
+            destinationPort: Int32,
+            reply: @escaping (ConnectionOwnerResult?, NSError?) -> Void
+        ) {
+            guard let owner = ConnectionOwnerLookup.find(
+                ipProtocol: ipProtocol,
+                sourceAddress: sourceAddress,
+                sourcePort: sourcePort,
+                destinationAddress: destinationAddress,
+                destinationPort: destinationPort
+            ) else {
+                reply(nil, NSError(domain: "UserService", code: -1, userInfo: [
+                    NSLocalizedDescriptionKey: "Connection owner not found",
+                ]))
+                return
+            }
+            reply(ConnectionOwnerResult(
+                userId: owner.userId,
+                userName: owner.userName,
+                processPaths: owner.processPaths
+            ), nil)
+        }
+
         func getWIFIState(reply: @escaping (String?, String?, NSError?) -> Void) {
             let client = CWWiFiClient.shared()
             guard let interface = client.interface() else {

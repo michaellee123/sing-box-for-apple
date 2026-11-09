@@ -111,6 +111,7 @@ public enum ProfileConfigPatcher {
     }
 
     public static let preferredClashMode = "智能首选"
+    public static let whitelistClashMode = "白名单"
 
     public static func clashModes(in config: String) -> [String] {
         guard let root = parse(config) else { return [] }
@@ -201,9 +202,6 @@ public enum ProfileConfigPatcher {
     }
 
     public static func apply(config: String, policy: ProfileSmartPolicy?, advanced: AdvancedRoutePolicy) -> String {
-        let advancedActive = advanced.hasRules
-        let smartActive = policy?.hasRoutingEffect == true
-        guard advancedActive || smartActive else { return config }
         guard var root = parse(config) else { return config }
         guard var outbounds = outboundObjects(in: root) else { return config }
         let nodes = proxyNodes(in: root)
@@ -276,6 +274,8 @@ public enum ProfileConfigPatcher {
 
         let insertionIndex = routeInsertionIndex(in: rules)
         var top = forced
+        // 白名单模式只让上面的强制接管命中代理，其余流量在模式规则生效前直接放行。
+        top.append(["clash_mode": whitelistClashMode, "outbound": directTag])
         if (forced + groupRules).contains(where: isDomainRule), !prefixHasSniff(rules, length: insertionIndex) {
             top.insert(["action": "sniff"], at: 0)
         }

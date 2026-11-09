@@ -148,27 +148,28 @@ import SwiftUI
         }
 
         public var body: some View {
-            content
-                .safeAreaInset(edge: .top, spacing: 0) {
-                    VStack(spacing: 0) {
-                        sidebarHeader
-                        if showsReconnectBanner {
-                            reconnectBanner
-                        }
-                    }
+            VStack(spacing: 0) {
+                sidebarTop
+                content
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
+            .background(.regularMaterial)
+            .alert($alert)
+            .onChangeCompat(of: environments.extensionProfile?.status) { newStatus in
+                if newStatus == .disconnected {
+                    environments.pendingReconnect = false
                 }
-                .alert($alert)
-                .onChangeCompat(of: environments.extensionProfile?.status) { newStatus in
-                    if newStatus == .disconnected {
-                        environments.pendingReconnect = false
-                    }
-                }
+            }
         }
 
         @ViewBuilder
         private var content: some View {
             if environments.remoteServer != nil {
-                remoteContent
+                RemoteSidebarContentView(
+                    selection: $selection,
+                    localSelection: $localSelection,
+                    environments: environments
+                )
             } else if environments.extensionProfileLoading {
                 ProgressView()
             } else if let profile = environments.extensionProfile {
@@ -180,6 +181,16 @@ import SwiftUI
                 )
             } else {
                 disconnectedContent
+            }
+        }
+
+        @ViewBuilder
+        private var sidebarTop: some View {
+            VStack(spacing: 0) {
+                sidebarHeader
+                if showsReconnectBanner {
+                    reconnectBanner
+                }
             }
         }
 
@@ -202,18 +213,21 @@ import SwiftUI
         }
 
         private var reconnectBanner: some View {
-            HStack(spacing: 8) {
-                Image(systemName: "arrow.triangle.2.circlepath")
-                    .foregroundStyle(.secondary)
-                Text("配置已更改，需重连后生效")
-                    .font(.caption)
-                Spacer(minLength: 4)
+            VStack(spacing: 8) {
+                HStack(spacing: 6) {
+                    Image(systemName: "arrow.triangle.2.circlepath")
+                        .foregroundStyle(.secondary)
+                    Text("配置已更改，需重连后生效")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
                 Button("立即重连") {
                     reconnectNow()
                 }
                 .buttonStyle(.borderedProminent)
                 .controlSize(.small)
             }
+            .frame(maxWidth: .infinity)
             .padding(.horizontal, 10)
             .padding(.vertical, 8)
             .glassBanner()
@@ -231,14 +245,6 @@ import SwiftUI
                     alert = AlertState(action: "restart service", error: error)
                 }
             }
-        }
-
-        private var remoteContent: some View {
-            RemoteSidebarContentView(
-                selection: $selection,
-                localSelection: $localSelection,
-                environments: environments
-            )
         }
 
         private var disconnectedContent: some View {

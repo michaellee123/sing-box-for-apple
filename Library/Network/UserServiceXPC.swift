@@ -22,6 +22,14 @@
             identifier: String,
             reply: @escaping (NSError?) -> Void
         )
+        func findConnectionOwner(
+            ipProtocol: Int32,
+            sourceAddress: String,
+            sourcePort: Int32,
+            destinationAddress: String,
+            destinationPort: Int32,
+            reply: @escaping (ConnectionOwnerResult?, NSError?) -> Void
+        )
     }
 
     public enum UserServiceXPC {
@@ -30,6 +38,15 @@
             interface.setClasses(
                 fileHandleClasses,
                 for: #selector(UserServiceProtocol.connectSSHAgent(reply:)),
+                argumentIndex: 0,
+                ofReply: true
+            )
+            let ownerClasses = NSSet(array: [ConnectionOwnerResult.self, NSArray.self, NSString.self]) as! Set<AnyHashable>
+            interface.setClasses(
+                ownerClasses,
+                for: #selector(UserServiceProtocol.findConnectionOwner(
+                    ipProtocol:sourceAddress:sourcePort:destinationAddress:destinationPort:reply:
+                )),
                 argumentIndex: 0,
                 ofReply: true
             )
@@ -159,6 +176,33 @@
             try call("cancelNotification") { proxy, reply in
                 proxy.cancelNotification(identifier: identifier, reply: reply)
             }
+        }
+
+        public func findConnectionOwner(
+            ipProtocol: Int32,
+            sourceAddress: String,
+            sourcePort: Int32,
+            destinationAddress: String,
+            destinationPort: Int32
+        ) -> ConnectionOwnerResult? {
+            var owner: ConnectionOwnerResult?
+            do {
+                try call("findConnectionOwner") { proxy, reply in
+                    proxy.findConnectionOwner(
+                        ipProtocol: ipProtocol,
+                        sourceAddress: sourceAddress,
+                        sourcePort: sourcePort,
+                        destinationAddress: destinationAddress,
+                        destinationPort: destinationPort
+                    ) { result, error in
+                        owner = result
+                        reply(error)
+                    }
+                }
+            } catch {
+                return nil
+            }
+            return owner
         }
     }
 #endif

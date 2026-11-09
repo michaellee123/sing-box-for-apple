@@ -239,6 +239,19 @@ public class ExtensionPlatformInterface: NSObject, LibboxPlatformInterfaceProtoc
                 ])
             }
             if Variant.useSystemExtension {
+                if let owner = UserServiceClient.shared.findConnectionOwner(
+                    ipProtocol: ipProtocol,
+                    sourceAddress: sourceAddress,
+                    sourcePort: sourcePort,
+                    destinationAddress: destinationAddress,
+                    destinationPort: destinationPort
+                ) {
+                    let result = LibboxConnectionOwner()
+                    result.userId = owner.userId
+                    result.userName = owner.userName
+                    result.setProcessPaths(owner.processPaths.toStringIterator())
+                    return result
+                }
                 let owner = try RootHelperClient.shared.findConnectionOwner(
                     ipProtocol: ipProtocol,
                     sourceAddress: sourceAddress,

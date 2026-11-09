@@ -34,7 +34,7 @@ open class ExtensionProvider: NEPacketTunnelProvider {
         try ApplicationLocale.apply(options["locale"] as? String)
         tunnelOptions = options
         overridePreferences = OverridePreferences(
-            includeAllNetworks: (options["includeAllNetworks"] as? NSNumber)?.boolValue ?? false,
+            includeAllNetworks: FixedPacketTunnelSettings.includeAllNetworks,
             systemProxyEnabled: (options["systemProxyEnabled"] as? NSNumber)?.boolValue ?? true,
             excludeDefaultRoute: (options["excludeDefaultRoute"] as? NSNumber)?.boolValue ?? false,
             autoRouteUseSubRangesByDefault: (options["autoRouteUseSubRangesByDefault"] as? NSNumber)?.boolValue ?? false,

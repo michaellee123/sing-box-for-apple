@@ -60,7 +60,27 @@ public struct MainView: View {
         }
     }
 
-    private func screenshotTargetHeight(baseHeight _: CGFloat, window: NSWindow) -> CGFloat {        let scale = max(window.backingScaleFactor, 1)
+    private func normalizeSidebarWidth(in window: NSWindow?) {
+        guard let contentView = window?.contentView else { return }
+        for splitView in findSplitViews(in: contentView) {
+            guard let controller = splitView.delegate as? NSSplitViewController,
+                  let sidebarItem = controller.splitViewItems.first,
+                  sidebarItem.viewController.view.frame.width < 200 else { continue }
+            // Restored NSSplitViewItem thickness limits can override navigationSplitViewColumnWidth.
+            splitView.autosaveName = nil
+            sidebarItem.maximumThickness = 280
+            sidebarItem.minimumThickness = 200
+            splitView.setPosition(200, ofDividerAt: 0)
+        }
+    }
+
+    private func findSplitViews(in view: NSView) -> [NSSplitView] {
+        let current = (view as? NSSplitView).map { [$0] } ?? []
+        return current + view.subviews.flatMap(findSplitViews)
+    }
+
+    private func screenshotTargetHeight(baseHeight _: CGFloat, window: NSWindow) -> CGFloat {
+        let scale = max(window.backingScaleFactor, 1)
         if let pixelOverride = ProcessInfo.processInfo.environment["SCREENSHOT_WINDOW_PIXEL_HEIGHT"] {
             let trimmed = pixelOverride.trimmingCharacters(in: .whitespacesAndNewlines)
             if let height = Double(trimmed), height > 0 {
@@ -86,21 +106,31 @@ public struct MainView: View {
                 viewModel.selection.contentView
                     .navigationTitle(viewModel.selection.title)
             }
+            .background(.regularMaterial)
             .environment(\.cardConfigurationVersion, cardConfigurationVersion)
             .environment(\.settingsNavigationPath, $settingsNavigationPath)
             .navigationSplitViewColumnWidth(650)
         }
         .hideSidebarToggle()
-        .frame(minWidth: Variant.screenshotMode ? 0 : 850, minHeight: Variant.screenshotMode ? 0 : 500)
+        .frame(
+            minWidth: Variant.screenshotMode ? 0 : 850,
+            maxWidth: .infinity,
+            minHeight: Variant.screenshotMode ? 0 : 500,
+            maxHeight: .infinity
+        )
         .onChangeCompat(of: columnVisibility) { newValue in
             if newValue != .all {
                 columnVisibility = .all
             }
         }
         .background(WindowAccessor { window in
+            window?.isOpaque = false
+            window?.backgroundColor = .clear
             Task { @MainActor in
+                normalizeSidebarWidth(in: window)
                 hideSidebarToggleItem(in: window)
                 try? await Task.sleep(nanoseconds: 300_000_000)
+                normalizeSidebarWidth(in: window)
                 hideSidebarToggleItem(in: window)
             }
             guard Variant.screenshotMode, !didConfigureScreenshotWindow, let window else { return }

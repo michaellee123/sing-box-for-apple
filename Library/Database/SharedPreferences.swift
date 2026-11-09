@@ -1,5 +1,14 @@
 import Foundation
 
+public enum FixedPacketTunnelSettings {
+    public static let includeAllNetworks = false
+    public static let excludeAPNs = true
+    public static let excludeCellularServices = true
+    public static let excludeLocalNetworks = false
+    public static let enforceRoutes = false
+    public static let excludeDeviceCommunication = true
+}
+
 #if os(macOS)
     public enum MenuBarExtraSpeedMode: Int, CaseIterable {
         case disabled = 0

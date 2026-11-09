@@ -152,15 +152,15 @@ public class ExtensionProfile: ObservableObject {
     private func applyProtocolConfiguration() async {
         #if !os(tvOS)
             guard let protocolConfiguration = manager?.protocolConfiguration else { return }
-            protocolConfiguration.includeAllNetworks = await SharedPreferences.includeAllNetworks.get()
-            protocolConfiguration.excludeLocalNetworks = await SharedPreferences.excludeLocalNetworks.get()
-            protocolConfiguration.enforceRoutes = await SharedPreferences.enforceRoutes.get()
+            protocolConfiguration.includeAllNetworks = FixedPacketTunnelSettings.includeAllNetworks
+            protocolConfiguration.excludeLocalNetworks = FixedPacketTunnelSettings.excludeLocalNetworks
+            protocolConfiguration.enforceRoutes = FixedPacketTunnelSettings.enforceRoutes
             if #available(iOS 16.4, macOS 13.3, *) {
-                protocolConfiguration.excludeAPNs = await SharedPreferences.excludeAPNs.get()
-                protocolConfiguration.excludeCellularServices = await SharedPreferences.excludeCellularServices.get()
+                protocolConfiguration.excludeAPNs = FixedPacketTunnelSettings.excludeAPNs
+                protocolConfiguration.excludeCellularServices = FixedPacketTunnelSettings.excludeCellularServices
             }
             if #available(iOS 17.4, macOS 14.4, *) {
-                protocolConfiguration.excludeDeviceCommunication = await SharedPreferences.excludeDeviceCommunication.get()
+                protocolConfiguration.excludeDeviceCommunication = FixedPacketTunnelSettings.excludeDeviceCommunication
             }
         #endif
     }
@@ -258,9 +258,11 @@ public class ExtensionProfile: ObservableObject {
             advanced: advancedPolicy
         )
         #if !os(tvOS)
-            let includeAllNetworks = await SharedPreferences.includeAllNetworks.get()
             let normalizedConfig = ProfileConfigPatcher.rebindOccupiedListeners(
-                ProfileConfigPatcher.normalizeTunStack(patchedConfig, includeAllNetworks: includeAllNetworks)
+                ProfileConfigPatcher.normalizeTunStack(
+                    patchedConfig,
+                    includeAllNetworks: FixedPacketTunnelSettings.includeAllNetworks
+                )
             )
         #else
             let normalizedConfig = patchedConfig
@@ -283,7 +285,7 @@ public class ExtensionProfile: ObservableObject {
         options["excludeAPNsRoute"] = await NSNumber(value: SharedPreferences.excludeAPNsRoute.get())
 
         #if !os(tvOS)
-            options["includeAllNetworks"] = await NSNumber(value: SharedPreferences.includeAllNetworks.get())
+            options["includeAllNetworks"] = NSNumber(value: FixedPacketTunnelSettings.includeAllNetworks)
         #endif
 
         #if os(tvOS)
