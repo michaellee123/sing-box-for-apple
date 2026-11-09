@@ -12,9 +12,10 @@ public enum NavigationPage: Int, CaseIterable, Identifiable {
         case groups
         case connections
     #endif
-    case logs
-    case tools
-    case settings
+        case logs
+        case tools
+        case settings
+        case advancedRouting
 }
 
 public extension NavigationPage {
@@ -28,6 +29,8 @@ public extension NavigationPage {
             self = .tools
         case "settings":
             self = .settings
+        case "routing", "advanced", "advancedrouting":
+            self = .advancedRouting
         #if !os(tvOS)
             case "groups":
                 self = .groups
@@ -41,15 +44,13 @@ public extension NavigationPage {
 
     #if !os(tvOS)
         static var sidebarDefaultPages: [NavigationPage] {
-            [.logs, .tools, .settings]
+            [.advancedRouting, .logs, .tools, .settings]
         }
     #endif
 
-    #if os(iOS)
-        static var tabPages: [NavigationPage] {
-            [.dashboard, .logs, .tools, .settings]
-        }
-    #endif
+    static var tabPages: [NavigationPage] {
+        [.dashboard, .advancedRouting, .logs, .tools, .settings]
+    }
 
     var label: some View {
         Label(title, systemImage: iconImage)
@@ -72,6 +73,8 @@ public extension NavigationPage {
             return String(localized: "Tools")
         case .settings:
             return String(localized: "Settings")
+        case .advancedRouting:
+            return String(localized: "高级路由")
         }
     }
 
@@ -91,6 +94,8 @@ public extension NavigationPage {
             return "terminal.fill"
         case .settings:
             return "gear.circle.fill"
+        case .advancedRouting:
+            return "signpost.right.fill"
         }
     }
 
@@ -112,6 +117,8 @@ public extension NavigationPage {
                 ToolsView()
             case .settings:
                 SettingView()
+            case .advancedRouting:
+                AdvancedRouteView()
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
@@ -124,7 +131,9 @@ public extension NavigationPage {
         @MainActor
         func visible(_ profile: ExtensionProfile?) -> Bool {
             switch self {
-            case .groups, .connections:
+            case .groups:
+                return false
+            case .connections:
                 return profile?.status.isConnectedStrict == true
             default:
                 return true

@@ -36,9 +36,14 @@ public struct NewProfileView: View {
     public init(
         _ importRequest: ImportRequest? = nil,
         localImportRequest: LocalImportRequest? = nil,
+        locksRemoteType: Bool = false,
         onSuccess: ((Profile) async -> Void)? = nil
     ) {
-        _viewModel = StateObject(wrappedValue: NewProfileViewModel(importRequest: importRequest, localImportRequest: localImportRequest))
+        _viewModel = StateObject(wrappedValue: NewProfileViewModel(
+            importRequest: importRequest,
+            localImportRequest: localImportRequest,
+            locksRemoteType: locksRemoteType
+        ))
         self.onSuccess = onSuccess
     }
 
@@ -81,7 +86,11 @@ public struct NewProfileView: View {
                     TextField("Name", text: $viewModel.profileName, prompt: Text("Required"))
                         .multilineTextAlignment(.trailing)
                 }
-                FormPicker(String(localized: "Type"), options: Self.profileTypeOptions, selection: $viewModel.profileType)
+                if viewModel.locksRemoteType {
+                    FormTextItem("类型", "远程")
+                } else {
+                    FormPicker(String(localized: "Type"), options: Self.profileTypeOptions, selection: $viewModel.profileType)
+                }
                 if viewModel.profileType == .local {
                     FormPicker(String(localized: "File"), options: Self.fileImportOptions, selection: $viewModel.fileImport)
                     #if os(tvOS)
@@ -128,7 +137,9 @@ public struct NewProfileView: View {
                     }
                 }
             } footer: {
-                if viewModel.profileType == .icloud {
+                if viewModel.locksRemoteType {
+                    Text("从 URL 下载 sing-box 配置。类型固定为远程，保存后可以自动更新。")
+                } else if viewModel.profileType == .icloud {
                     let fileName = viewModel.remotePath.isEmpty ? String(localized: "FileName") : viewModel.remotePath
                     Text("File will be located at iCloud Drive/sing-box/\(fileName)")
                 }
@@ -159,7 +170,7 @@ public struct NewProfileView: View {
     #if os(macOS)
         private var macOSBody: some View {
             VStack(alignment: .leading, spacing: 0) {
-                Text(viewModel.isImport ? "Import Profile" : "New Profile")
+                Text(viewModel.locksRemoteType ? "从 URL 导入" : (viewModel.isImport ? "Import Profile" : "New Profile"))
                     .font(.headline)
                     .padding(.horizontal, 20)
                     .padding(.top, 20)
@@ -211,7 +222,7 @@ public struct NewProfileView: View {
     #else
         private var iOSBody: some View {
             formContent
-                .navigationTitle("New Profile")
+                .navigationTitle(viewModel.locksRemoteType ? "从 URL 导入" : "New Profile")
                 .disabled(viewModel.isSaving)
                 .alert($viewModel.alert)
                 .onChangeCompat(of: viewModel.createSucceeded) { newValue in

@@ -59,12 +59,8 @@ import SwiftUI
             }
             .padding(.horizontal, 12)
             .padding(.vertical, 8)
-            #if os(iOS)
-                .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12))
-            #else
-                .background(Color(nsColor: .controlBackgroundColor), in: RoundedRectangle(cornerRadius: 8))
-            #endif
-                .padding(.horizontal, 8)
+            .glassSurface(cornerRadius: 12)
+            .padding(.horizontal, 8)
         }
 
         private var symbolBar: some View {
@@ -77,11 +73,7 @@ import SwiftUI
                 .padding(.horizontal, 8)
                 .padding(.vertical, 6)
             }
-            #if os(iOS)
-            .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12))
-            #else
-            .background(Color(nsColor: .controlBackgroundColor), in: RoundedRectangle(cornerRadius: 8))
-            #endif
+            .glassSurface(cornerRadius: 12)
             .padding(.horizontal, 8)
             .padding(.bottom, 8)
         }

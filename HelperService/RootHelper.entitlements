@@ -6,7 +6,7 @@
 	<false/>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>$(TeamIdentifierPrefix)$(BASE_PACKAGE_IDENTIFIER)</string>
+		<string>$(APP_GROUP_IDENTIFIER)</string>
 	</array>
 </dict>
 </plist>

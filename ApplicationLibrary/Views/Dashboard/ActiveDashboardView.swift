@@ -73,8 +73,8 @@ import SwiftUI
             }
         }
         .navigationDestination(isPresented: $showGroups) {
-            GroupListView()
-                .navigationTitle("Groups")
+            SmartGroupManageView()
+                .navigationTitle("智能分组")
                 .toolbar {
                     ToolbarItemGroup(placement: .topBarLeading) {
                         BackButton()

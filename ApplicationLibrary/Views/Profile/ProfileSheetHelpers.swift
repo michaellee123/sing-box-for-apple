@@ -18,9 +18,11 @@ public enum SheetSize {
 
 @MainActor
 public struct NavigationSheet<Content: View>: View {
+    @Environment(\.dismiss) private var dismiss
     private let title: String?
     private let size: SheetSize
     private let showDoneButton: Bool
+    private let showsCloseButton: Bool
     private let onDismiss: (() -> Void)?
     private let content: () -> Content
 
@@ -28,12 +30,14 @@ public struct NavigationSheet<Content: View>: View {
         title: String? = nil,
         size: SheetSize = .large,
         showDoneButton: Bool = false,
+        showsCloseButton: Bool = false,
         onDismiss: (() -> Void)? = nil,
         @ViewBuilder content: @escaping () -> Content
     ) {
         self.title = title
         self.size = size
         self.showDoneButton = showDoneButton
+        self.showsCloseButton = showsCloseButton
         self.onDismiss = onDismiss
         self.content = content
     }
@@ -49,15 +53,28 @@ public struct NavigationSheet<Content: View>: View {
     #if os(macOS)
         private var macOSBody: some View {
             VStack(alignment: .leading, spacing: 0) {
-                if let title {
-                    Text(title)
-                        .font(.headline)
-                        .padding(.horizontal, 20)
-                        .padding(.top, 20)
-                        .padding(.bottom, 12)
+                if title != nil || showsCloseButton {
+                    HStack {
+                        if let title {
+                            Text(title)
+                                .font(.headline)
+                        }
+                        Spacer()
+                        if showsCloseButton {
+                            Button("关闭") {
+                                onDismiss?()
+                                dismiss()
+                            }
+                            .keyboardShortcut(.cancelAction)
+                        }
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.top, 16)
+                    .padding(.bottom, 12)
                 }
                 content()
             }
+            .background(SheetKeyWindowFix())
             .toolbar {
                 if showDoneButton {
                     ToolbarItem(placement: .confirmationAction) {
@@ -73,6 +90,16 @@ public struct NavigationSheet<Content: View>: View {
             NavigationStackCompat {
                 content()
                     .navigationTitle(title ?? "")
+                    .toolbar {
+                        if showsCloseButton {
+                            ToolbarItem(placement: .confirmationAction) {
+                                Button("关闭") {
+                                    onDismiss?()
+                                    dismiss()
+                                }
+                            }
+                        }
+                    }
                 #if os(iOS)
                     .navigationBarTitleDisplayMode(.inline)
                 #endif

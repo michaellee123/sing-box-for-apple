@@ -57,10 +57,7 @@ public struct GroupItemView: View {
         }
         #if !os(tvOS)
         .buttonStyle(.borderless)
-        .background(
-            RoundedRectangle(cornerRadius: 12)
-                .fill(isSelected ? AnyShapeStyle(Color.accentColor.opacity(0.12)) : AnyShapeStyle(itemBackground))
-        )
+        .glassInteractive(cornerRadius: 12, tint: isSelected ? .accentColor : nil)
         .overlay(
             RoundedRectangle(cornerRadius: 12)
                 .strokeBorder(isSelected ? Color.accentColor : Color.urlTestNeutral, lineWidth: 1)
@@ -73,16 +70,6 @@ public struct GroupItemView: View {
                 Label("URLTest", systemImage: "bolt.fill")
             }
         }
-        #endif
-    }
-
-    private var itemBackground: Color {
-        #if os(iOS)
-            return Color(uiColor: .systemGroupedBackground)
-        #elseif os(macOS)
-            return Color(nsColor: .windowBackgroundColor)
-        #else
-            return Color.clear
         #endif
     }
 }

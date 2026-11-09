@@ -102,8 +102,6 @@ public struct ExtensionStatusView: View {
     }
 
     private struct StatusItem<T: View>: View {
-        @Environment(\.colorScheme) private var colorScheme
-
         private let title: String
         @ViewBuilder private let content: () -> T
 
@@ -127,25 +125,7 @@ public struct ExtensionStatusView: View {
             #else
                 .padding(EdgeInsets(top: 10, leading: 13, bottom: 10, trailing: 13))
             #endif
-                .background(backgroundColor)
-                .cornerRadius(10)
-        }
-
-        private var backgroundColor: Color {
-            #if os(iOS)
-                return Color(uiColor: .secondarySystemGroupedBackground)
-            #elseif os(macOS)
-                return Color(nsColor: .textBackgroundColor)
-            #elseif os(tvOS)
-                switch colorScheme {
-                case .dark:
-                    return Color(uiColor: .black)
-                default:
-                    return Color(uiColor: .white)
-                }
-            #else
-                return Color.clear
-            #endif
+                .glassSurface(cornerRadius: 10)
         }
     }
 

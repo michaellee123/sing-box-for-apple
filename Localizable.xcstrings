@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "—" : {
+
+    },
     "[age](https://github.com/filosottile/age) is a modern and secure asymmetric encryption tool. When enabled, the zip file is encrypted with this project's public key so it can be posted publicly, e.g. in GitHub issues." : {
       "localizations" : {
         "fa" : {
@@ -28,6 +31,9 @@
           }
         }
       }
+    },
+    "「%@」以及指向它的域名、应用规则会一起删除，无法撤销。" : {
+
     },
     "**If I’ve defended your modern life, please consider sponsoring me.**" : {
       "localizations" : {
@@ -57,6 +63,9 @@
         }
       }
     },
+    "%@ 的分组" : {
+
+    },
     "%lld Profiles" : {
       "localizations" : {
         "fa" : {
@@ -84,6 +93,29 @@
           }
         }
       }
+    },
+    "%lld 个分组 · %lld 个节点" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld 个分组 · %2$lld 个节点"
+          }
+        }
+      }
+    },
+    "%lld 组 / %lld 节点" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld 组 / %2$lld 节点"
+          }
+        }
+      }
+    },
+    "%ums" : {
+
     },
     "A report is saved for each service run" : {
       "localizations" : {
@@ -1635,6 +1667,7 @@
       }
     },
     "Clash Mode" : {
+      "extractionState" : "stale",
       "localizations" : {
         "fa" : {
           "stringUnit" : {
@@ -2281,6 +2314,7 @@
     },
     "Content" : {
       "comment" : "Title for the terminal text selection sheet",
+      "extractionState" : "stale",
       "localizations" : {
         "fa" : {
           "stringUnit" : {
@@ -2985,6 +3019,7 @@
       }
     },
     "Deprecated Warning" : {
+      "extractionState" : "stale",
       "localizations" : {
         "fa" : {
           "stringUnit" : {
@@ -4448,6 +4483,9 @@
     },
     "example.com" : {
       "shouldTranslate" : false
+    },
+    "example.com 匹配该域名和全部子域名。也可以使用 full:、keyword:、regex: 和 *.example.com。" : {
+
     },
     "Exclude APNs Route" : {
       "localizations" : {
@@ -5971,6 +6009,7 @@
       }
     },
     "If this property is true when the **includeAllNetworks** property is false, the system scopes the included routes to the VPN and the excluded routes to the current primary network interface. This property supersedes the system routing table and scoping operations by apps.\n\nIf you set both the **enforceRoutes** and **excludeLocalNetworks** properties to true, the system excludes network connections to hosts on the local network.\n\n[Apple Documentation](https://developer.apple.com/documentation/networkextension/nevpnprotocol/3689459-enforceroutes)" : {
+      "extractionState" : "stale",
       "localizations" : {
         "fa" : {
           "stringUnit" : {
@@ -5994,6 +6033,7 @@
       "shouldTranslate" : false
     },
     "If this property is true, the system excludes Apple Push Notification services (APNs) traffic, but only when the **includeAllNetworks** property is also true.\n\n[Apple Documentation](https://developer.apple.com/documentation/networkextension/nevpnprotocol/4140516-excludeapns)" : {
+      "extractionState" : "stale",
       "localizations" : {
         "fa" : {
           "stringUnit" : {
@@ -6017,6 +6057,7 @@
       "shouldTranslate" : false
     },
     "If this property is true, the system excludes cellular services — such as Wi-Fi Calling, MMS, SMS, and Visual Voicemail — but only when the **includeAllNetworks** property is also true. This property doesn't impact services that use the cellular network only — such as VoLTE — which the system automatically excludes.\n\n[Apple Documentation](https://developer.apple.com/documentation/networkextension/nevpnprotocol/4140517-excludecellularservices)" : {
+      "extractionState" : "stale",
       "localizations" : {
         "fa" : {
           "stringUnit" : {
@@ -6040,6 +6081,7 @@
       "shouldTranslate" : false
     },
     "If this property is true, the system excludes network connections to hosts on the local network — such as AirPlay, AirDrop, and CarPlay — but only when the **includeAllNetworks** or **enforceRoutes** property is also true.\n\n[Apple Documentation](https://developer.apple.com/documentation/networkextension/nevpnprotocol/3143658-excludelocalnetworks)" : {
+      "extractionState" : "stale",
       "localizations" : {
         "fa" : {
           "stringUnit" : {
@@ -6063,6 +6105,7 @@
       "shouldTranslate" : false
     },
     "If this property is true, the system routes network traffic through the tunnel except traffic for designated system services necessary for maintaining expected device functionality. You can exclude some types of traffic using the **excludeAPNs**, **excludeLocalNetworks**, and **excludeCellularServices** properties in combination with this property.\n\nwhen enabled, the default TUN stack is changed to `gvisor`, and the `system` and `mixed` stacks are not available.\n\n[Apple Documentation](https://developer.apple.com/documentation/networkextension/nevpnprotocol/3131931-includeallnetworks)" : {
+      "extractionState" : "stale",
       "localizations" : {
         "fa" : {
           "stringUnit" : {
@@ -8563,9 +8606,6 @@
         }
       }
     },
-    "No documentation.\n\n[Apple Documentation](https://developer.apple.com/documentation/networkextension/nevpnprotocol/excludedevicecommunication)" : {
-      "shouldTranslate" : false
-    },
     "No domains" : {
       "localizations" : {
         "fa" : {
@@ -9279,6 +9319,7 @@
       }
     },
     "Overview" : {
+      "extractionState" : "stale",
       "localizations" : {
         "fa" : {
           "stringUnit" : {
@@ -14275,6 +14316,391 @@
           }
         }
       }
+    },
+    "仅在「接管全部网络」开启时生效。开启后，系统会把 Apple 推送通知（APNs）流量排除在隧道之外。" : {
+
+    },
+    "仅在「接管全部网络」开启时生效。开启后，系统会排除 Wi-Fi 通话、彩信、短信和可视化语音留言等蜂窝服务。只走蜂窝网络的服务（例如 VoLTE）由系统自动排除，不受这项影响。" : {
+
+    },
+    "仅在「接管全部网络」或「强制执行路由」开启时生效。开启后，系统会排除通往本地网络设备的连接，例如隔空播放、隔空投送和车载。" : {
+
+    },
+    "从 JSON 导入" : {
+
+    },
+    "从 URL 下载 sing-box 配置。类型固定为远程，保存后可以自动更新。" : {
+
+    },
+    "从 URL 导入" : {
+
+    },
+    "从正在运行的应用添加" : {
+
+    },
+    "从正在运行的应用里选择。选中后，这个应用和它的辅助进程都会走对应分组。" : {
+
+    },
+    "作为默认分组" : {
+
+    },
+    "保存" : {
+
+    },
+    "先在仪表里选择一个配置，再管理它下面的智能分组。" : {
+
+    },
+    "全选" : {
+
+    },
+    "全部节点" : {
+
+    },
+    "共 %lld 个，当前规则命中 %lld 个。手动指定只能选已命中的节点。" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "共 %1$lld 个，当前规则命中 %2$lld 个。手动指定只能选已命中的节点。"
+          }
+        }
+      }
+    },
+    "共 %lld 个。延迟在连接后由测速结果更新，未分组的节点不会进入默认路径。" : {
+
+    },
+    "共享 USB 设备" : {
+
+    },
+    "关闭" : {
+
+    },
+    "删除" : {
+
+    },
+    "删除分组" : {
+
+    },
+    "删除这个分组？" : {
+
+    },
+    "删除这条规则" : {
+
+    },
+    "刷新全部节点的延迟" : {
+
+    },
+    "前缀" : {
+
+    },
+    "包含" : {
+
+    },
+    "匹配方式" : {
+
+    },
+    "反选" : {
+
+    },
+    "取消" : {
+
+    },
+    "同一分组里的规则是「或」关系。例如包含「香港」或前缀「HK」。" : {
+
+    },
+    "名称" : {
+
+    },
+    "名称匹配" : {
+
+    },
+    "后缀" : {
+
+    },
+    "在「接管全部网络」关闭时，开启这项会把需要进入 VPN 的路由限定在隧道内，把排除的路由留给当前主网络接口。它优先于系统路由表和应用自己的路由设置。\n\n如果同时开启「排除本地网络」，通往本地网络设备的连接也会被排除。" : {
+
+    },
+    "完全相等" : {
+
+    },
+    "完成" : {
+
+    },
+    "导入智能分组" : {
+
+    },
+    "导入高级路由" : {
+
+    },
+    "导出为 JSON" : {
+
+    },
+    "将用文件里的 %lld 个分组替换「%@」当前的全部分组和域名、应用规则。" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "将用文件里的 %1$lld 个分组替换「%2$@」当前的全部分组和域名、应用规则。"
+          }
+        }
+      }
+    },
+    "将用文件里的规则替换当前全部高级路由规则，无法撤销。" : {
+
+    },
+    "展开节点" : {
+
+    },
+    "已命中" : {
+
+    },
+    "已运行" : {
+
+    },
+    "已选 %lld 个" : {
+
+    },
+    "开启后，系统会排除设备之间的通信流量，例如同一 Apple 账户设备之间的直接通信。这项没有更详细的系统说明。" : {
+
+    },
+    "开启后，除了维持设备正常工作所必需的系统服务，其余网络流量都会进入隧道。可以同时用「排除 Apple 推送」「排除本地网络」「排除蜂窝服务」把一部分流量留在隧道外。\n\n开启后，TUN 会改用 go 协议栈。system、mixed 和 gvisor 在这个模式下不能用。" : {
+
+    },
+    "强制执行路由" : {
+
+    },
+    "手动指定" : {
+
+    },
+    "手工添加进程名" : {
+
+    },
+    "打开智能分组管理" : {
+
+    },
+    "报告选项" : {
+
+    },
+    "拖动左侧把手调整顺序，点整行展开节点。一个节点只进入第一个命中的分组。" : {
+
+    },
+    "拖动调整顺序" : {
+
+    },
+    "指定域名使用指定分组" : {
+
+    },
+    "指定应用使用指定分组" : {
+
+    },
+    "排除 Apple 推送" : {
+
+    },
+    "排除本地网络" : {
+
+    },
+    "排除蜂窝服务" : {
+
+    },
+    "排除设备通信" : {
+
+    },
+    "接管全部网络" : {
+
+    },
+    "搜索应用名或进程名" : {
+
+    },
+    "搜索日志" : {
+
+    },
+    "搜索连接" : {
+
+    },
+    "收起节点" : {
+
+    },
+    "日志选项" : {
+
+    },
+    "显示 %lld / %lld 个，当前规则命中 %lld 个。手动指定只能选已命中的节点。" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "显示 %1$lld / %2$lld 个，当前规则命中 %3$lld 个。手动指定只能选已命中的节点。"
+          }
+        }
+      }
+    },
+    "显示 %lld / %lld 个。延迟在连接后由测速结果更新，未分组的节点不会进入默认路径。" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "显示 %1$lld / %2$lld 个。延迟在连接后由测速结果更新，未分组的节点不会进入默认路径。"
+          }
+        }
+      }
+    },
+    "智能分组" : {
+
+    },
+    "暂停自动滚动" : {
+
+    },
+    "替换" : {
+
+    },
+    "未命中" : {
+
+    },
+    "未指定" : {
+
+    },
+    "查看节点延迟" : {
+
+    },
+    "查看说明" : {
+
+    },
+    "模式" : {
+
+    },
+    "正则" : {
+
+    },
+    "正在建立连接…" : {
+
+    },
+    "正在读取路由规则…" : {
+
+    },
+    "正在读取配置和分组…" : {
+
+    },
+    "每行一个域名，写法和高级路由相同。这些规则优先于「强制接管」，但让位于「强制放行」。" : {
+
+    },
+    "没有匹配的应用" : {
+
+    },
+    "没有正在运行的应用" : {
+
+    },
+    "测速" : {
+
+    },
+    "测速中" : {
+
+    },
+    "添加" : {
+
+    },
+    "添加分组" : {
+
+    },
+    "添加匹配规则" : {
+
+    },
+    "添加域名规则" : {
+
+    },
+    "添加应用规则" : {
+
+    },
+    "点击开始连接" : {
+
+    },
+    "点节点即可切换手动选择。" : {
+
+    },
+    "点选正在运行的应用。选中后，这个应用和它的辅助进程都会走这个分组。" : {
+
+    },
+    "立即重连" : {
+
+    },
+    "筛选节点" : {
+
+    },
+    "管理" : {
+
+    },
+    "管理仪表卡片" : {
+
+    },
+    "类型" : {
+
+    },
+    "继续自动滚动" : {
+
+    },
+    "编辑分组" : {
+
+    },
+    "编辑这条规则" : {
+
+    },
+    "自动选择" : {
+
+    },
+    "节点名称" : {
+
+    },
+    "节点来自当前配置里的代理出站。" : {
+
+    },
+    "节点选择" : {
+
+    },
+    "设为手动选择的节点" : {
+
+    },
+    "设为默认分组" : {
+
+    },
+    "还没有分组。添加名称匹配规则后节点会自动归组，还能指定默认分组、域名和应用。" : {
+
+    },
+    "还没有匹配规则" : {
+
+    },
+    "还没有命中节点。点铅笔添加名称匹配规则。" : {
+
+    },
+    "还没有智能分组" : {
+
+    },
+    "还没有规则" : {
+
+    },
+    "还没有选择应用" : {
+
+    },
+    "这个配置里还没有可分组的代理节点。" : {
+
+    },
+    "连接选项" : {
+
+    },
+    "选为手动指定的节点" : {
+
+    },
+    "配置已更改，需重连后生效" : {
+
+    },
+    "高级路由" : {
+
+    },
+    "高级路由只作用于本机隧道。当前正在查看远程设备，返回本机后再修改。" : {
+
+    },
+    "默认" : {
+
+    },
+    "默认分组只会有一个。勾选后，原来走主代理的流量改走这里。" : {
+
     }
   },
   "version" : "1.0"

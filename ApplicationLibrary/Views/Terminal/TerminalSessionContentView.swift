@@ -35,7 +35,7 @@
                                     .multilineTextAlignment(.leading)
                                     .foregroundColor(.primary)
                                     .padding()
-                                    .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 10))
+                                    .glassSurface(cornerRadius: 10)
                                     .padding(.horizontal)
                                     .frame(maxWidth: 480)
                                     .textSelection(.enabled)
@@ -50,7 +50,7 @@
                                     .multilineTextAlignment(.leading)
                                     .foregroundColor(.primary)
                                     .padding()
-                                    .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 10))
+                                    .glassSurface(cornerRadius: 10)
                                     .padding(.horizontal)
                                     .frame(maxWidth: 480)
                                     .textSelection(.enabled)
@@ -71,7 +71,7 @@
                                 .buttonStyle(.borderedProminent)
                             }
                             .padding()
-                            .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 12))
+                            .glassSurface(cornerRadius: 12)
                             .padding()
                         }
                     }

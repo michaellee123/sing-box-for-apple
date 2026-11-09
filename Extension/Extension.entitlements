@@ -6,8 +6,6 @@
 	<array>
 		<string>packet-tunnel-provider</string>
 	</array>
-	<key>com.apple.developer.networking.multicast</key>
-	<true/>
 	<key>com.apple.developer.networking.wifi-info</key>
 	<true/>
 	<key>com.apple.security.app-sandbox</key>
@@ -20,6 +18,12 @@
 	<true/>
 	<key>com.apple.security.network.server</key>
 	<true/>
+	<key>com.apple.security.temporary-exception.sysctl.read-only</key>
+	<array>
+		<string>net.inet.tcp.pcblist_n</string>
+		<string>net.inet.udp.pcblist_n</string>
+		<string>kern.osrelease</string>
+	</array>
 	<key>com.apple.security.personal-information.location</key>
 	<true/>
 </dict>

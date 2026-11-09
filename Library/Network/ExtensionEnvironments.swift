@@ -198,6 +198,9 @@ public class ExtensionEnvironments: ObservableObject {
 
     @Published public var extensionProfileLoading = true
     @Published public var extensionProfile: ExtensionProfile?
+    /// Set when a config change requires a full tunnel restart to take effect.
+    /// The sidebar surfaces a reconnect banner instead of hot-reloading.
+    @Published public var pendingReconnect = false
     @Published public var emptyProfiles = false
     @Published public var pendingImportRemoteProfile: ImportRemoteProfileRequest?
     @Published public var remoteServer: RemoteServer?
@@ -230,6 +233,13 @@ public class ExtensionEnvironments: ObservableObject {
                 self?.objectWillChange.send()
             }
             .store(in: &cancellables)
+        commandClient.$clashMode
+            .sink { [weak self] mode in
+                Task { @MainActor [weak self] in
+                    await self?.applyPreferredClashMode(current: mode)
+                }
+            }
+            .store(in: &cancellables)
         commandClient.$isConnected
             .sink { [weak self] isConnected in
                 guard isConnected else { return }
@@ -252,6 +262,15 @@ public class ExtensionEnvironments: ObservableObject {
             extensionProfile = .mock
             commandClient.setupMockData()
         }
+    }
+
+    private func applyPreferredClashMode(current: String) async {
+        guard remoteServer == nil, !current.isEmpty, !Variant.screenshotMode else { return }
+        let modes = commandClient.clashModeList
+        guard !modes.isEmpty else { return }
+        let resolved = ProfileConfigPatcher.resolveClashMode(await SharedPreferences.clashMode.get(), modes: modes)
+        guard !resolved.isEmpty, resolved != current else { return }
+        try? CommandTarget.standaloneClient().setClashMode(resolved)
     }
 
     public func postReload() {

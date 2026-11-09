@@ -233,9 +233,13 @@ private struct CardSegmentModifier: ViewModifier {
     @Environment(\.colorScheme) private var colorScheme
 
     func body(content: Content) -> some View {
-        content
-            .background(backgroundColor)
-            .clipShape(shape)
+        if #available(iOS 26.0, macOS 26.0, tvOS 26.0, *) {
+            content.glassEffect(.regular, in: shape)
+        } else {
+            content
+                .background(backgroundColor)
+                .clipShape(shape)
+        }
     }
 
     private var backgroundColor: Color {

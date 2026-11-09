@@ -145,6 +145,8 @@ public struct USBIPServerView: View {
             } label: {
                 Label("Share USB Device", systemImage: "plus")
             }
+            .toolbarIconStyle()
+            .help("共享 USB 设备")
             .disabled(!providerViewModel.isStarted)
         }
 

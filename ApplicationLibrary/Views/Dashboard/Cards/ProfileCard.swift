@@ -180,6 +180,7 @@ public struct ProfileCard: View {
                     VStack(alignment: .leading, spacing: 12) {
                         profileInfo(for: profile)
                         actionButtonsRow(for: profile)
+                        ProfileSmartGroupSection(profileID: profile.id, profileName: profile.name)
                     }
                 }
             }
@@ -539,7 +540,9 @@ extension ProfileCard {
 #if os(iOS)
     private struct OpaqueSheetBackground: ViewModifier {
         func body(content: Content) -> some View {
-            if #available(iOS 16.4, *) {
+            if #available(iOS 26.0, *) {
+                content
+            } else if #available(iOS 16.4, *) {
                 content.presentationBackground(.regularMaterial)
             } else {
                 content

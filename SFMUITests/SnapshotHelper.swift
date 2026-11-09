@@ -85,7 +85,7 @@ private func captureWindowScreenshot(windowID: CGWindowID, to path: URL) -> Bool
 
 @MainActor
 private func windowID(for _: XCUIApplication) -> CGWindowID? {
-    guard let runningApp = NSRunningApplication.runningApplications(withBundleIdentifier: "io.nekohasekai.sfamt").first else {
+    guard let runningApp = NSRunningApplication.runningApplications(withBundleIdentifier: "net.5itu.sfamt").first else {
         return nil
     }
     let pid = Int(runningApp.processIdentifier)

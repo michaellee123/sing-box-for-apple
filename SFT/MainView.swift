@@ -22,7 +22,7 @@ struct MainView: View {
 
     var body: some View {
         TabView(selection: $selection) {
-            ForEach(NavigationPage.allCases, id: \.self) { page in
+            ForEach(NavigationPage.tabPages, id: \.self) { page in
                 NavigationStackCompat {
                     page.contentView
                         .focusSection()

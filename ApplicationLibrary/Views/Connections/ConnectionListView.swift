@@ -31,6 +31,8 @@ public struct ConnectionListView: View {
                         Button(action: viewModel.toggleSearch) {
                             Label("Search", systemImage: "magnifyingglass")
                         }
+                        .toolbarIconStyle()
+                        .help("搜索连接")
                     }
                     ConnectionMenuView(
                         connectionStateFilter: $viewModel.connectionStateFilter,
@@ -219,6 +221,8 @@ private struct ConnectionListContentView: View {
             } label: {
                 Image(systemName: "ellipsis.circle")
             }
+            .toolbarIconStyle()
+            .help("连接选项")
         }
     }
 

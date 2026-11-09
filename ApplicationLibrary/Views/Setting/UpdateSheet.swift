@@ -72,6 +72,7 @@
             }
             .padding(20)
             .frame(minWidth: 480)
+            .background(SheetKeyWindowFix())
             .interactiveDismissDisabled(updateManager.isDownloading)
             .alert($updateManager.alert)
         }

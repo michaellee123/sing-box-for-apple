@@ -143,8 +143,7 @@ public struct ClashModeCard: View {
         }
 
         private var selectorCapsule: some View {
-            RoundedRectangle(cornerRadius: 12)
-                .fill(Color.primary.opacity(0.1))
+            GlassSelectorCapsule()
         }
     #endif
 
@@ -196,6 +195,17 @@ public struct ClashModeCard: View {
 }
 
 #if !os(tvOS)
+    private struct GlassSelectorCapsule: View {
+        var body: some View {
+            if #available(iOS 26.0, macOS 26.0, *) {
+                Color.clear.glassEffect(.regular.tint(.accentColor.opacity(0.22)), in: .rect(cornerRadius: 12))
+            } else {
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color.primary.opacity(0.1))
+            }
+        }
+    }
+
     private struct AvailableWidthKey: PreferenceKey {
         static var defaultValue: CGFloat = 0
         static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {

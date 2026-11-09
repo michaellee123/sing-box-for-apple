@@ -83,6 +83,7 @@ public enum SharedPreferences {
     #endif
 
     public static let systemProxyEnabled = Preference<Bool>("system_proxy_enabled", defaultValue: true)
+    public static let clashMode = Preference<String>("clash_mode", defaultValue: "智能首选")
 
     #if os(tvOS)
         public static let commandServerPort = Preference<Int32>("command_server_port", defaultValue: 0)
@@ -164,5 +165,10 @@ public enum SharedPreferences {
     // Dashboard
 
     public static let enabledDashboardCards = Preference<[String]>("enabled_dashboard_cards", defaultValue: [])
+
+    // Routing
+
+    public static let advancedRoutePolicy = Preference<AdvancedRoutePolicy>("advanced_route_policy", defaultValue: .empty)
+    public static let smartGroupPolicies = Preference<[ProfileSmartPolicy]>("smart_group_policies", defaultValue: [])
     public static let dashboardCardOrder = Preference<[String]>("dashboard_card_order", defaultValue: [])
 }

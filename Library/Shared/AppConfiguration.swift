@@ -1,4 +1,5 @@
 import Foundation
+import Security
 
 public enum AppConfiguration {
     public static let packageName: String = {
@@ -15,12 +16,25 @@ public enum AppConfiguration {
         return value
     }()
 
-    public static var teamID: String {
-        guard let dotIndex = appGroupID.firstIndex(of: ".") else {
-            fatalError("Invalid appGroupID format: \(appGroupID)")
+    /// The app group name no longer carries the team prefix, so the team identifier has to come
+    /// from the code signature. Every bundle that reads this is signed.
+    public static let teamID: String = {
+        let executable = Bundle.main.executableURL ?? Bundle.main.bundleURL
+        var staticCode: SecStaticCode?
+        guard SecStaticCodeCreateWithPath(executable as CFURL, [], &staticCode) == errSecSuccess,
+              let staticCode
+        else {
+            fatalError("Cannot inspect the code signature of \(executable.path)")
         }
-        return String(appGroupID[..<dotIndex])
-    }
+        var information: CFDictionary?
+        guard SecCodeCopySigningInformation(staticCode, SecCSFlags(rawValue: UInt32(kSecCSSigningInformation)), &information) == errSecSuccess,
+              let dictionary = information as? [String: Any],
+              let team = dictionary[kSecCodeInfoTeamIdentifier as String] as? String
+        else {
+            fatalError("Missing team identifier in the code signature of \(executable.path)")
+        }
+        return team
+    }()
 
     public static var extensionBundleID: String {
         "\(packageName).extension"

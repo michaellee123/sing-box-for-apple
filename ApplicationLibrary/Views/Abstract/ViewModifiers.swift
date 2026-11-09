@@ -1,4 +1,32 @@
 import SwiftUI
+#if os(macOS)
+    import AppKit
+#endif
+
+#if os(macOS)
+    /// A freshly presented sheet is not always made key, so keys keep going to the
+    /// window behind it until the user clicks inside the sheet.
+    public struct SheetKeyWindowFix: NSViewRepresentable {
+        public init() {}
+
+        public func makeNSView(context _: Context) -> NSView {
+            KeyWindowView()
+        }
+
+        public func updateNSView(_: NSView, context _: Context) {}
+    }
+
+    private final class KeyWindowView: NSView {
+        override func viewDidMoveToWindow() {
+            super.viewDidMoveToWindow()
+            guard let window else { return }
+            window.makeKey()
+            if window.firstResponder == nil || window.firstResponder === window {
+                window.makeFirstResponder(window.initialFirstResponder)
+            }
+        }
+    }
+#endif
 
 public struct PlatformSheetSize {
     let minWidth: CGFloat
@@ -52,6 +80,7 @@ private struct PlatformSheetModifier<SheetContent: View>: ViewModifier {
                     self.content()
                 }
                 .frame(minWidth: size.minWidth, minHeight: size.minHeight)
+                .background(SheetKeyWindowFix())
             }
         #elseif os(tvOS)
             content.fullScreenCover(isPresented: $isPresented, onDismiss: onDismiss) {
@@ -82,6 +111,7 @@ private struct PlatformSheetItemModifier<Item: Identifiable, SheetContent: View>
                     self.content(item)
                 }
                 .frame(minWidth: size.minWidth, minHeight: size.minHeight)
+                .background(SheetKeyWindowFix())
             }
         #elseif os(tvOS)
             content.fullScreenCover(item: $item, onDismiss: onDismiss) { item in
@@ -123,14 +153,8 @@ public extension View {
         #if os(tvOS)
             buttonStyle(ActionButtonStyle())
         #else
-            if #available(iOS 26.0, macOS 26.0, *) {
-                frame(width: 44, height: 32)
-                    .glassEffect(.regular.interactive(), in: .rect(cornerRadius: 8))
-            } else {
-                frame(width: 44, height: 32)
-                    .background(Color.secondary.opacity(0.1))
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-            }
+            frame(width: 44, height: 32)
+                .glassInteractive(cornerRadius: 8)
         #endif
     }
 }
@@ -169,8 +193,7 @@ public struct ActionIconButton: View {
                 .font(.system(size: 12))
             #if !os(tvOS)
                 .frame(width: 44, height: 32)
-                .background(Color.secondary.opacity(0.1))
-                .clipShape(RoundedRectangle(cornerRadius: 8))
+                .glassInteractive(cornerRadius: 8)
             #endif
                 .contentShape(Rectangle())
         }
@@ -179,6 +202,107 @@ public struct ActionIconButton: View {
         #else
         .buttonStyle(.plain)
         #endif
+    }
+}
+
+// MARK: - Liquid Glass surfaces
+
+public extension View {
+    /// Every trailing title-bar control must share these metrics, otherwise pages with
+    /// buttons get a taller title bar than pages without. The plain style also drops the
+    /// hover background the default macOS toolbar button draws.
+    @ViewBuilder
+    func toolbarIconStyle() -> some View {
+        #if os(macOS)
+            labelStyle(.iconOnly)
+                .buttonStyle(.plain)
+                .menuStyle(.borderlessButton)
+                .menuIndicator(.hidden)
+                .foregroundStyle(.secondary)
+                // macOS pads a toolbar item to a 36pt minimum height but only ~3pt
+                // horizontally, so the content box must be wider than it is tall for the
+                // drawn pill to come out square.
+                .frame(width: 36, height: 22)
+                .contentShape(Rectangle())
+        #else
+            self
+        #endif
+    }
+
+    /// A glass panel/card surface (non-interactive).
+    func glassSurface(cornerRadius: CGFloat = 16, tint: Color? = nil) -> some View {
+        modifier(GlassAppearance(cornerRadius: cornerRadius, tint: tint, interactive: false))
+    }
+
+    /// A glass surface for interactive controls (icon buttons, fields, pickers).
+    func glassInteractive(cornerRadius: CGFloat = 12, tint: Color? = nil) -> some View {
+        modifier(GlassAppearance(cornerRadius: cornerRadius, tint: tint, interactive: true))
+    }
+
+    /// Full-bleed glass bar for toolbars and footers.
+    func glassBar() -> some View {
+        modifier(GlassAppearance(cornerRadius: 0, tint: nil, interactive: false))
+    }
+
+    /// Lets the system batch nearby glass surfaces without merging their shapes.
+    @ViewBuilder
+    func glassEffectContainer(spacing: CGFloat? = nil) -> some View {
+        if #available(iOS 26.0, macOS 26.0, tvOS 26.0, *) {
+            GlassEffectContainer(spacing: spacing) { self }
+        } else {
+            self
+        }
+    }
+
+    /// A grouped macOS form draws an unfocused text field with no bezel, so the field
+    /// stays invisible until the pointer lands on it.
+    @ViewBuilder
+    func visibleTextField() -> some View {
+        #if os(macOS)
+            textFieldStyle(.roundedBorder)
+        #else
+            self
+        #endif
+    }
+
+    @ViewBuilder
+    func visibleTextEditor() -> some View {
+        #if os(macOS)
+            padding(4)
+                .overlay(RoundedRectangle(cornerRadius: 6).strokeBorder(Color.secondary.opacity(0.4), lineWidth: 1))
+        #else
+            self
+        #endif
+    }
+}
+
+private struct GlassAppearance: ViewModifier {
+    let cornerRadius: CGFloat
+    let tint: Color?
+    let interactive: Bool
+
+    func body(content: Content) -> some View {
+        if #available(iOS 26.0, macOS 26.0, tvOS 26.0, *) {
+            content.glassEffect(makeGlass(), in: .rect(cornerRadius: cornerRadius, style: .continuous))
+        } else {
+            content.background(
+                RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                    .fill(fallbackFill)
+            )
+        }
+    }
+
+    @available(iOS 26.0, macOS 26.0, tvOS 26.0, *)
+    private func makeGlass() -> Glass {
+        var base: Glass = tint.map { Glass.regular.tint($0) } ?? Glass.regular
+        if interactive {
+            base = base.interactive()
+        }
+        return base
+    }
+
+    private var fallbackFill: Color {
+        tint?.opacity(0.14) ?? Color.secondary.opacity(0.10)
     }
 }
 

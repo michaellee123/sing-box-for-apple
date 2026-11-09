@@ -48,12 +48,12 @@
 		3AE4D0BE2A6E2DDC009FEA9E /* Library.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3AEC211D2A459B4700A63465 /* Library.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3AE595822F08C3D400C13426 /* Library.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AEC211D2A459B4700A63465 /* Library.framework */; };
 		3AE595AA2F08C61600C13426 /* RootHelper in Copy Helpers */ = {isa = PBXBuildFile; fileRef = 3AE595712F08C34000C13426 /* RootHelper */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		3AE595B02F08D00000C13426 /* HelperService/LaunchDaemons/io.nekohasekai.sfamt.helper.plist in Copy LaunchDaemon */ = {isa = PBXBuildFile; fileRef = 3AE595AE2F08D00000C13426 /* HelperService/LaunchDaemons/io.nekohasekai.sfamt.helper.plist */; };
+		3AE595B02F08D00000C13426 /* HelperService/LaunchDaemons/net.5itu.sfamt.helper.plist in Copy LaunchDaemon */ = {isa = PBXBuildFile; fileRef = 3AE595AE2F08D00000C13426 /* HelperService/LaunchDaemons/net.5itu.sfamt.helper.plist */; };
 		3AE8490F2FC559980016E814 /* GhosttyTerminal in Frameworks */ = {isa = PBXBuildFile; platformFilters = (ios, macos, ); productRef = 3AE8490E2FC559980016E814 /* GhosttyTerminal */; };
 		3AE849112FC559A30016E814 /* GhosttyTheme in Frameworks */ = {isa = PBXBuildFile; platformFilters = (ios, macos, ); productRef = 3AE849102FC559A30016E814 /* GhosttyTheme */; };
 		3AEAEE992A4F16430059612D /* Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 3A096F862A4ED3DE00D4A2ED /* Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		3AEECBF22A6DF40A006A0E0C /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF342B12A4AA520002B34AC /* NetworkExtension.framework */; };
-		3AEECC1A2A6DFA79006A0E0C /* io.nekohasekai.sfamt.system.systemextension in Embed System Extensions */ = {isa = PBXBuildFile; fileRef = 3AEECBF12A6DF40A006A0E0C /* io.nekohasekai.sfamt.system.systemextension */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		3AEECC1A2A6DFA79006A0E0C /* net.5itu.sfamt.system.systemextension in Embed System Extensions */ = {isa = PBXBuildFile; fileRef = 3AEECBF12A6DF40A006A0E0C /* net.5itu.sfamt.system.systemextension */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		3AEECC1D2A6DFA79006A0E0C /* Library.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AEC211D2A459B4700A63465 /* Library.framework */; };
 		3AEECC1E2A6DFA79006A0E0C /* Library.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3AEC211D2A459B4700A63465 /* Library.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3AEECC352A6DFDAD006A0E0C /* MacLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AEECC2F2A6DFDAD006A0E0C /* MacLibrary.framework */; };
@@ -484,7 +484,7 @@
 			dstPath = ../Library/LaunchDaemons;
 			dstSubfolderSpec = 7;
 			files = (
-				3AE595B02F08D00000C13426 /* HelperService/LaunchDaemons/io.nekohasekai.sfamt.helper.plist in Copy LaunchDaemon */,
+				3AE595B02F08D00000C13426 /* HelperService/LaunchDaemons/net.5itu.sfamt.helper.plist in Copy LaunchDaemon */,
 			);
 			name = "Copy LaunchDaemon";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -506,7 +506,7 @@
 			dstPath = "$(SYSTEM_EXTENSIONS_FOLDER_PATH)";
 			dstSubfolderSpec = 16;
 			files = (
-				3AEECC1A2A6DFA79006A0E0C /* io.nekohasekai.sfamt.system.systemextension in Embed System Extensions */,
+				3AEECC1A2A6DFA79006A0E0C /* net.5itu.sfamt.system.systemextension in Embed System Extensions */,
 			);
 			name = "Embed System Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -550,13 +550,13 @@
 		3AE595712F08C34000C13426 /* RootHelper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RootHelper; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE595A12F08C4E900C13426 /* CoreWLAN.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreWLAN.framework; path = System/Library/Frameworks/CoreWLAN.framework; sourceTree = SDKROOT; };
 		3AE595A32F08C4ED00C13426 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
-		3AE595AE2F08D00000C13426 /* HelperService/LaunchDaemons/io.nekohasekai.sfamt.helper.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = HelperService/LaunchDaemons/io.nekohasekai.sfamt.helper.plist; sourceTree = "<group>"; };
+		3AE595AE2F08D00000C13426 /* HelperService/LaunchDaemons/net.5itu.sfamt.helper.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = HelperService/LaunchDaemons/net.5itu.sfamt.helper.plist; sourceTree = "<group>"; };
 		3AE595AF2F08D00000C13426 /* UserHelper/LaunchAgents/io.nekohasekai.sfamt.userhelper.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = UserHelper/LaunchAgents/io.nekohasekai.sfamt.userhelper.plist; sourceTree = "<group>"; };
 		3AEC20DB2A4599D000A63465 /* Libbox.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = Libbox.xcframework; sourceTree = "<group>"; };
 		3AEC20F32A459AB400A63465 /* sing-box.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "sing-box.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AEC21092A459B1900A63465 /* sing-box.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "sing-box.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AEC211D2A459B4700A63465 /* Library.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Library.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3AEECBF12A6DF40A006A0E0C /* io.nekohasekai.sfamt.system.systemextension */ = {isa = PBXFileReference; explicitFileType = "wrapper.system-extension"; includeInIndex = 0; path = io.nekohasekai.sfamt.system.systemextension; sourceTree = BUILT_PRODUCTS_DIR; };
+		3AEECBF12A6DF40A006A0E0C /* net.5itu.sfamt.system.systemextension */ = {isa = PBXFileReference; explicitFileType = "wrapper.system-extension"; includeInIndex = 0; path = net.5itu.sfamt.system.systemextension; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AEECC042A6DF9CA006A0E0C /* SFM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SFM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AEECC2F2A6DFDAD006A0E0C /* MacLibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MacLibrary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AF342B12A4AA520002B34AC /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
@@ -967,7 +967,7 @@
 		3AE5C9042F08E53400C13426 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				3AE595AE2F08D00000C13426 /* HelperService/LaunchDaemons/io.nekohasekai.sfamt.helper.plist */,
+				3AE595AE2F08D00000C13426 /* HelperService/LaunchDaemons/net.5itu.sfamt.helper.plist */,
 				3AE595AF2F08D00000C13426 /* UserHelper/LaunchAgents/io.nekohasekai.sfamt.userhelper.plist */,
 			);
 			name = "Recovered References";
@@ -1015,7 +1015,7 @@
 				3A77016D2A4E6B34008F031F /* IntentsExtension.appex */,
 				3A096F862A4ED3DE00D4A2ED /* Extension.appex */,
 				3A4EAD102A4FEAE6005435B3 /* ApplicationLibrary.framework */,
-				3AEECBF12A6DF40A006A0E0C /* io.nekohasekai.sfamt.system.systemextension */,
+				3AEECBF12A6DF40A006A0E0C /* net.5itu.sfamt.system.systemextension */,
 				3AEECC042A6DF9CA006A0E0C /* SFM.app */,
 				3AEECC2F2A6DFDAD006A0E0C /* MacLibrary.framework */,
 				3AC03B962A72BF3300B7946F /* sing-box.app */,
@@ -1454,7 +1454,7 @@
 			);
 			name = SystemExtension;
 			productName = SystemExtension;
-			productReference = 3AEECBF12A6DF40A006A0E0C /* io.nekohasekai.sfamt.system.systemextension */;
+			productReference = 3AEECBF12A6DF40A006A0E0C /* net.5itu.sfamt.system.systemextension */;
 			productType = "com.apple.product-type.system-extension";
 		};
 		3AEECC032A6DF9CA006A0E0C /* SFM.System */ = {
@@ -2186,7 +2186,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 6D7J9B84UR;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Extension/Info.plist;
@@ -2226,7 +2226,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 6D7J9B84UR;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Extension/Info.plist;
@@ -2345,7 +2345,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 6D7J9B84UR;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
 				MARKETING_VERSION = 1.0;
@@ -2367,7 +2367,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 6D7J9B84UR;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
 				MARKETING_VERSION = 1.0;
@@ -2390,7 +2390,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 6D7J9B84UR;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BASE_PACKAGE_IDENTIFIER).SFTUITests";
@@ -2412,7 +2412,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 6D7J9B84UR;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BASE_PACKAGE_IDENTIFIER).SFTUITests";
@@ -2435,7 +2435,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 6D7J9B84UR;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 26.2;
 				MARKETING_VERSION = 1.0;
@@ -2456,7 +2456,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 6D7J9B84UR;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 26.2;
 				MARKETING_VERSION = 1.0;
@@ -2479,7 +2479,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 6D7J9B84UR;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = IntentsExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = IntentsExtension;
@@ -2518,7 +2518,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 6D7J9B84UR;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = IntentsExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = IntentsExtension;
@@ -2554,7 +2554,8 @@
 		3A7B322F2FDE1D54008C0F7F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				APP_GROUP_IDENTIFIER = "$(TeamIdentifierPrefix)$(BASE_PACKAGE_IDENTIFIER)";
+				APP_GROUP_IDENTIFIER = "group.$(BASE_PACKAGE_IDENTIFIER)";
+				"APP_GROUP_IDENTIFIER[sdk=macosx*]" = "$(TeamIdentifierPrefix)group.$(BASE_PACKAGE_IDENTIFIER)";
 				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGN_STYLE = Manual;
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
@@ -2579,7 +2580,8 @@
 		3A7B32302FDE1D54008C0F7F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				APP_GROUP_IDENTIFIER = "$(TeamIdentifierPrefix)$(BASE_PACKAGE_IDENTIFIER)";
+				APP_GROUP_IDENTIFIER = "group.$(BASE_PACKAGE_IDENTIFIER)";
+				"APP_GROUP_IDENTIFIER[sdk=macosx*]" = "$(TeamIdentifierPrefix)group.$(BASE_PACKAGE_IDENTIFIER)";
 				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGN_STYLE = Manual;
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
@@ -2605,11 +2607,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APP_GROUP_IDENTIFIER = "group.$(BASE_PACKAGE_IDENTIFIER)";
+				"APP_GROUP_IDENTIFIER[sdk=macosx*]" = "$(TeamIdentifierPrefix)group.$(BASE_PACKAGE_IDENTIFIER)";
 				CODE_SIGN_ENTITLEMENTS = FileProviderExtension/FileProviderExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 6D7J9B84UR;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FileProviderExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = FileProviderExtension;
@@ -2638,11 +2641,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APP_GROUP_IDENTIFIER = "group.$(BASE_PACKAGE_IDENTIFIER)";
+				"APP_GROUP_IDENTIFIER[sdk=macosx*]" = "$(TeamIdentifierPrefix)group.$(BASE_PACKAGE_IDENTIFIER)";
 				CODE_SIGN_ENTITLEMENTS = FileProviderExtension/FileProviderExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 6D7J9B84UR;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FileProviderExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = FileProviderExtension;
@@ -2676,7 +2680,7 @@
 				CODE_SIGN_ENTITLEMENTS = SFT/SFT.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 6D7J9B84UR;
 				ENABLE_PREVIEWS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2712,7 +2716,7 @@
 				CODE_SIGN_ENTITLEMENTS = SFT/SFT.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 6D7J9B84UR;
 				ENABLE_PREVIEWS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2748,7 +2752,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 6D7J9B84UR;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TVExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = TVExtension;
@@ -2784,7 +2788,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 6D7J9B84UR;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TVExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = TVExtension;
@@ -2823,7 +2827,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 6D7J9B84UR;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WidgetExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = WidgetExtension;
@@ -2854,7 +2858,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 6D7J9B84UR;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WidgetExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = WidgetExtension;
@@ -2880,13 +2884,14 @@
 		3AE595762F08C34000C13426 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				APP_GROUP_IDENTIFIER = "$(TeamIdentifierPrefix)$(BASE_PACKAGE_IDENTIFIER)";
+				APP_GROUP_IDENTIFIER = "group.$(BASE_PACKAGE_IDENTIFIER)";
+				"APP_GROUP_IDENTIFIER[sdk=macosx*]" = "$(TeamIdentifierPrefix)group.$(BASE_PACKAGE_IDENTIFIER)";
 				AUTOMATION_APPLE_EVENTS = NO;
 				CODE_SIGN_ENTITLEMENTS = HelperService/RootHelper.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 6D7J9B84UR;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
 				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
@@ -2915,19 +2920,22 @@
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
+				OTHER_CODE_SIGN_FLAGS = "--timestamp";
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 			};
 			name = Debug;
 		};
 		3AE595772F08C34000C13426 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				APP_GROUP_IDENTIFIER = "$(TeamIdentifierPrefix)$(BASE_PACKAGE_IDENTIFIER)";
+				APP_GROUP_IDENTIFIER = "group.$(BASE_PACKAGE_IDENTIFIER)";
+				"APP_GROUP_IDENTIFIER[sdk=macosx*]" = "$(TeamIdentifierPrefix)group.$(BASE_PACKAGE_IDENTIFIER)";
 				AUTOMATION_APPLE_EVENTS = NO;
 				CODE_SIGN_ENTITLEMENTS = HelperService/RootHelper.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 6D7J9B84UR;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
 				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
@@ -2956,6 +2964,8 @@
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
+				OTHER_CODE_SIGN_FLAGS = "--timestamp";
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 			};
 			name = Release;
 		};
@@ -2964,8 +2974,9 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APP_GROUP_IDENTIFIER = "group.$(BASE_PACKAGE_IDENTIFIER)";
+				"APP_GROUP_IDENTIFIER[sdk=macosx*]" = "$(TeamIdentifierPrefix)group.$(BASE_PACKAGE_IDENTIFIER)";
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				BASE_PACKAGE_IDENTIFIER = io.nekohasekai.sfamt;
+				BASE_PACKAGE_IDENTIFIER = net.5itu.sfamt;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -3034,8 +3045,9 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APP_GROUP_IDENTIFIER = "group.$(BASE_PACKAGE_IDENTIFIER)";
+				"APP_GROUP_IDENTIFIER[sdk=macosx*]" = "$(TeamIdentifierPrefix)group.$(BASE_PACKAGE_IDENTIFIER)";
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				BASE_PACKAGE_IDENTIFIER = io.nekohasekai.sfamt;
+				BASE_PACKAGE_IDENTIFIER = net.5itu.sfamt;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -3102,7 +3114,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 6D7J9B84UR;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SFI/Info.plist;
@@ -3145,7 +3157,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 6D7J9B84UR;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SFI/Info.plist;
@@ -3189,7 +3201,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 395;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 6D7J9B84UR;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -3228,7 +3240,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 395;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 6D7J9B84UR;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -3267,7 +3279,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 6D7J9B84UR;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -3315,7 +3327,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 6D7J9B84UR;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -3354,14 +3366,15 @@
 		3AEECBFD2A6DF40A006A0E0C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				APP_GROUP_IDENTIFIER = "$(TeamIdentifierPrefix)$(BASE_PACKAGE_IDENTIFIER)";
+				APP_GROUP_IDENTIFIER = "group.$(BASE_PACKAGE_IDENTIFIER)";
+				"APP_GROUP_IDENTIFIER[sdk=macosx*]" = "$(TeamIdentifierPrefix)group.$(BASE_PACKAGE_IDENTIFIER)";
 				CODE_SIGN_ENTITLEMENTS = SystemExtension/SystemExtension.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = P8XK3KHB48;
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = 6D7J9B84UR;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_INCOMING_NETWORK_CONNECTIONS = YES;
@@ -3389,27 +3402,30 @@
 				MARKETING_VERSION = "1.15.0-alpha.13";
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BASE_PACKAGE_IDENTIFIER).system";
 				PRODUCT_NAME = "$(inherited)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "XC io nekohasekai sfamt system";
+				PROVISIONING_PROFILE_SPECIFIER = "sfamt_system_devid";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "sfamt_system_devid";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
+				OTHER_CODE_SIGN_FLAGS = "--timestamp";
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 			};
 			name = Debug;
 		};
 		3AEECBFE2A6DF40A006A0E0C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				APP_GROUP_IDENTIFIER = "$(TeamIdentifierPrefix)$(BASE_PACKAGE_IDENTIFIER)";
+				APP_GROUP_IDENTIFIER = "group.$(BASE_PACKAGE_IDENTIFIER)";
+				"APP_GROUP_IDENTIFIER[sdk=macosx*]" = "$(TeamIdentifierPrefix)group.$(BASE_PACKAGE_IDENTIFIER)";
 				CODE_SIGN_ENTITLEMENTS = SystemExtension/SystemExtension.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = P8XK3KHB48;
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = 6D7J9B84UR;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_INCOMING_NETWORK_CONNECTIONS = YES;
@@ -3437,31 +3453,34 @@
 				MARKETING_VERSION = "1.15.0-alpha.13";
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BASE_PACKAGE_IDENTIFIER).system";
 				PRODUCT_NAME = "$(inherited)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "XC io nekohasekai sfamt system";
+				PROVISIONING_PROFILE_SPECIFIER = "sfamt_system_devid";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "sfamt_system_devid";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
+				OTHER_CODE_SIGN_FLAGS = "--timestamp";
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 			};
 			name = Release;
 		};
 		3AEECC112A6DF9CA006A0E0C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				APP_GROUP_IDENTIFIER = "$(TeamIdentifierPrefix)$(BASE_PACKAGE_IDENTIFIER)";
+				APP_GROUP_IDENTIFIER = "group.$(BASE_PACKAGE_IDENTIFIER)";
+				"APP_GROUP_IDENTIFIER[sdk=macosx*]" = "$(TeamIdentifierPrefix)group.$(BASE_PACKAGE_IDENTIFIER)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = SFM.System/SFM.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = P8XK3KHB48;
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = 6D7J9B84UR;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -3480,32 +3499,36 @@
 				MARKETING_VERSION = "1.15.0-alpha.13";
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BASE_PACKAGE_IDENTIFIER).standalone";
 				PRODUCT_NAME = SFM;
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "XC io nekohasekai sfamt standalone";
+				PROVISIONING_PROFILE_SPECIFIER = "sfamt_standalone_devid";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "sfamt_standalone_devid";
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
+				OTHER_CODE_SIGN_FLAGS = "--timestamp";
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 			};
 			name = Debug;
 		};
 		3AEECC122A6DF9CA006A0E0C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				APP_GROUP_IDENTIFIER = "$(TeamIdentifierPrefix)$(BASE_PACKAGE_IDENTIFIER)";
+				APP_GROUP_IDENTIFIER = "group.$(BASE_PACKAGE_IDENTIFIER)";
+				"APP_GROUP_IDENTIFIER[sdk=macosx*]" = "$(TeamIdentifierPrefix)group.$(BASE_PACKAGE_IDENTIFIER)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = SFM.System/SFM.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = P8XK3KHB48;
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = 6D7J9B84UR;
+				ENABLE_DEBUG_DYLIB = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_PREVIEWS = YES;
+				ENABLE_PREVIEWS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SFM.System/Info.plist;
@@ -3522,12 +3545,14 @@
 				MARKETING_VERSION = "1.15.0-alpha.13";
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BASE_PACKAGE_IDENTIFIER).standalone";
 				PRODUCT_NAME = SFM;
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "XC io nekohasekai sfamt standalone";
+				PROVISIONING_PROFILE_SPECIFIER = "sfamt_standalone_devid";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "sfamt_standalone_devid";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
+				OTHER_CODE_SIGN_FLAGS = "--timestamp";
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 			};
 			name = Release;
 		};
@@ -3616,7 +3641,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 6D7J9B84UR;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShareExtension/Info.plist;
@@ -3656,7 +3681,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 6D7J9B84UR;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShareExtension/Info.plist;
@@ -3697,7 +3722,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 6D7J9B84UR;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ActionExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Send with Taildrop";
@@ -3735,7 +3760,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 6D7J9B84UR;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ActionExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Send with Taildrop";
@@ -3767,13 +3792,14 @@
 		3AF7B2092FF10003000A0001 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				APP_GROUP_IDENTIFIER = "$(TeamIdentifierPrefix)$(BASE_PACKAGE_IDENTIFIER)";
+				APP_GROUP_IDENTIFIER = "group.$(BASE_PACKAGE_IDENTIFIER)";
+				"APP_GROUP_IDENTIFIER[sdk=macosx*]" = "$(TeamIdentifierPrefix)group.$(BASE_PACKAGE_IDENTIFIER)";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ShareExtension.System/ShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 6D7J9B84UR;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShareExtension.System/Info.plist;
@@ -3797,19 +3823,22 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				OTHER_CODE_SIGN_FLAGS = "--timestamp";
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 			};
 			name = Debug;
 		};
 		3AF7B20A2FF10003000A0001 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				APP_GROUP_IDENTIFIER = "$(TeamIdentifierPrefix)$(BASE_PACKAGE_IDENTIFIER)";
+				APP_GROUP_IDENTIFIER = "group.$(BASE_PACKAGE_IDENTIFIER)";
+				"APP_GROUP_IDENTIFIER[sdk=macosx*]" = "$(TeamIdentifierPrefix)group.$(BASE_PACKAGE_IDENTIFIER)";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ShareExtension.System/ShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8XK3KHB48;
+				DEVELOPMENT_TEAM = 6D7J9B84UR;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShareExtension.System/Info.plist;
@@ -3833,6 +3862,8 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
+				OTHER_CODE_SIGN_FLAGS = "--timestamp";
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 			};
 			name = Release;
 		};

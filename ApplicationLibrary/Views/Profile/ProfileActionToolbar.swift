@@ -79,7 +79,7 @@ public struct ProfileActionToolbar: View {
                     .disabled(viewModel.isLoading || !viewModel.isChanged)
                 }
                 .padding()
-                .background(Color(NSColor.controlBackgroundColor))
+                .glassBar()
             }
         }
     #endif

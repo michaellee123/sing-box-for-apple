@@ -25,62 +25,50 @@ struct PacketTunnelView: View {
             } else {
                 FormView {
                     #if !os(tvOS)
-                        FormToggle("includeAllNetworks", """
-                        If this property is true, the system routes network traffic through the tunnel except traffic for designated system services necessary for maintaining expected device functionality. You can exclude some types of traffic using the **excludeAPNs**, **excludeLocalNetworks**, and **excludeCellularServices** properties in combination with this property.
+                        FormToggle("接管全部网络", """
+                        开启后，除了维持设备正常工作所必需的系统服务，其余网络流量都会进入隧道。可以同时用「排除 Apple 推送」「排除本地网络」「排除蜂窝服务」把一部分流量留在隧道外。
 
-                        when enabled, the default TUN stack is changed to `gvisor`, and the `system` and `mixed` stacks are not available.
-
-                        [Apple Documentation](https://developer.apple.com/documentation/networkextension/nevpnprotocol/3131931-includeallnetworks)
+                        开启后，TUN 会改用 go 协议栈。system、mixed 和 gvisor 在这个模式下不能用。
                         """, $includeAllNetworks) { newValue in
                             await SharedPreferences.includeAllNetworks.set(newValue)
                             await applySettings()
                         }
 
                         if #available(iOS 16.4, macOS 13.3, *) {
-                            FormToggle("excludeAPNs", """
-                            If this property is true, the system excludes Apple Push Notification services (APNs) traffic, but only when the **includeAllNetworks** property is also true.
-
-                            [Apple Documentation](https://developer.apple.com/documentation/networkextension/nevpnprotocol/4140516-excludeapns)
+                            FormToggle("排除 Apple 推送", """
+                            仅在「接管全部网络」开启时生效。开启后，系统会把 Apple 推送通知（APNs）流量排除在隧道之外。
                             """, $excludeAPNs) { newValue in
                                 await SharedPreferences.excludeAPNs.set(newValue)
                                 await applySettings()
                             }
 
-                            FormToggle("excludeCellularServices", """
-                            If this property is true, the system excludes cellular services — such as Wi-Fi Calling, MMS, SMS, and Visual Voicemail — but only when the **includeAllNetworks** property is also true. This property doesn't impact services that use the cellular network only — such as VoLTE — which the system automatically excludes.
-
-                            [Apple Documentation](https://developer.apple.com/documentation/networkextension/nevpnprotocol/4140517-excludecellularservices)
+                            FormToggle("排除蜂窝服务", """
+                            仅在「接管全部网络」开启时生效。开启后，系统会排除 Wi-Fi 通话、彩信、短信和可视化语音留言等蜂窝服务。只走蜂窝网络的服务（例如 VoLTE）由系统自动排除，不受这项影响。
                             """, $excludeCellularServices) { newValue in
                                 await SharedPreferences.excludeCellularServices.set(newValue)
                                 await applySettings()
                             }
                         }
 
-                        FormToggle("excludeLocalNetworks", """
-                        If this property is true, the system excludes network connections to hosts on the local network — such as AirPlay, AirDrop, and CarPlay — but only when the **includeAllNetworks** or **enforceRoutes** property is also true.
-
-                        [Apple Documentation](https://developer.apple.com/documentation/networkextension/nevpnprotocol/3143658-excludelocalnetworks)
+                        FormToggle("排除本地网络", """
+                        仅在「接管全部网络」或「强制执行路由」开启时生效。开启后，系统会排除通往本地网络设备的连接，例如隔空播放、隔空投送和车载。
                         """, $excludeLocalNetworks) { newValue in
                             await SharedPreferences.excludeLocalNetworks.set(newValue)
                             await applySettings()
                         }
 
-                        FormToggle("enforceRoutes", """
-                        If this property is true when the **includeAllNetworks** property is false, the system scopes the included routes to the VPN and the excluded routes to the current primary network interface. This property supersedes the system routing table and scoping operations by apps.
+                        FormToggle("强制执行路由", """
+                        在「接管全部网络」关闭时，开启这项会把需要进入 VPN 的路由限定在隧道内，把排除的路由留给当前主网络接口。它优先于系统路由表和应用自己的路由设置。
 
-                        If you set both the **enforceRoutes** and **excludeLocalNetworks** properties to true, the system excludes network connections to hosts on the local network.
-
-                        [Apple Documentation](https://developer.apple.com/documentation/networkextension/nevpnprotocol/3689459-enforceroutes)
+                        如果同时开启「排除本地网络」，通往本地网络设备的连接也会被排除。
                         """, $enforceRoutes) { newValue in
                             await SharedPreferences.enforceRoutes.set(newValue)
                             await applySettings()
                         }
 
                         if #available(iOS 17.4, macOS 14.4, *) {
-                            FormToggle("excludeDeviceCommunication", """
-                            No documentation.
-
-                            [Apple Documentation](https://developer.apple.com/documentation/networkextension/nevpnprotocol/excludedevicecommunication)
+                            FormToggle("排除设备通信", """
+                            开启后，系统会排除设备之间的通信流量，例如同一 Apple 账户设备之间的直接通信。这项没有更详细的系统说明。
                             """, $excludeDeviceCommunication) { newValue in
                                 await SharedPreferences.excludeDeviceCommunication.set(newValue)
                                 await applySettings()

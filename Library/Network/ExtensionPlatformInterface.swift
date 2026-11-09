@@ -207,8 +207,12 @@ public class ExtensionPlatformInterface: NSObject, LibboxPlatformInterfaceProtoc
 
         networkSettings = settings
         try await tunnel.setTunnelNetworkSettings(settings)
+        #if os(macOS)
+            try await Task.sleep(nanoseconds: 200_000_000)
+            try await tunnel.setTunnelNetworkSettings(settings)
+        #endif
 
-        if let tunFd = tunnel.packetFlow.value(forKeyPath: "socket.fileDescriptor") as? Int32 {
+        if let tunFd = tunnel.packetFlow.value(forKeyPath: "socket.fileDescriptor") as? Int32, tunFd > 0 {
             ret0_.pointee = tunFd
             return
         }
@@ -229,12 +233,12 @@ public class ExtensionPlatformInterface: NSObject, LibboxPlatformInterfaceProtoc
 
     public func findConnectionOwner(_ ipProtocol: Int32, sourceAddress: String?, sourcePort: Int32, destinationAddress: String?, destinationPort: Int32) throws -> LibboxConnectionOwner {
         #if os(macOS)
+            guard let sourceAddress, let destinationAddress else {
+                throw NSError(domain: "findConnectionOwner", code: 0, userInfo: [
+                    NSLocalizedDescriptionKey: "Missing source or destination address",
+                ])
+            }
             if Variant.useSystemExtension {
-                guard let sourceAddress, let destinationAddress else {
-                    throw NSError(domain: "findConnectionOwner", code: 0, userInfo: [
-                        NSLocalizedDescriptionKey: "Missing source or destination address",
-                    ])
-                }
                 let owner = try RootHelperClient.shared.findConnectionOwner(
                     ipProtocol: ipProtocol,
                     sourceAddress: sourceAddress,
@@ -248,6 +252,22 @@ public class ExtensionPlatformInterface: NSObject, LibboxPlatformInterfaceProtoc
                 result.setProcessPaths(owner.processPaths.toStringIterator())
                 return result
             }
+            if let owner = ConnectionOwnerLookup.find(
+                ipProtocol: ipProtocol,
+                sourceAddress: sourceAddress,
+                sourcePort: sourcePort,
+                destinationAddress: destinationAddress,
+                destinationPort: destinationPort
+            ) {
+                let result = LibboxConnectionOwner()
+                result.userId = owner.userId
+                result.userName = owner.userName
+                result.setProcessPaths(owner.processPaths.toStringIterator())
+                return result
+            }
+            throw NSError(domain: "findConnectionOwner", code: 0, userInfo: [
+                NSLocalizedDescriptionKey: "Process lookup failed",
+            ])
         #elseif JAILBREAK
             guard let sourceAddress, let destinationAddress else {
                 throw NSError(domain: "findConnectionOwner", code: 0, userInfo: [

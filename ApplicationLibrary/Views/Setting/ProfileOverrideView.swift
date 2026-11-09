@@ -63,11 +63,7 @@ public struct ProfileOverrideView: View {
         guard let profile = environments.extensionProfile, profile.status.isConnected else {
             return
         }
-        do {
-            try await profile.reloadService()
-        } catch {
-            alert = AlertState(action: "reload service", error: error)
-        }
+        environments.pendingReconnect = true
     }
 
     @MainActor

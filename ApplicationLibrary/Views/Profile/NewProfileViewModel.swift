@@ -21,10 +21,19 @@ public final class NewProfileViewModel: BaseViewModel {
     @Published public var pickerPresented = false
 
     public let isImport: Bool
+    public let locksRemoteType: Bool
 
-    public init(importRequest: NewProfileView.ImportRequest? = nil, localImportRequest: NewProfileView.LocalImportRequest? = nil) {
+    public init(
+        importRequest: NewProfileView.ImportRequest? = nil,
+        localImportRequest: NewProfileView.LocalImportRequest? = nil,
+        locksRemoteType: Bool = false
+    ) {
         isImport = importRequest != nil
+        self.locksRemoteType = locksRemoteType
         super.init()
+        if locksRemoteType {
+            profileType = .remote
+        }
         if let importRequest {
             profileName = importRequest.name
             profileType = .remote
@@ -39,7 +48,7 @@ public final class NewProfileViewModel: BaseViewModel {
 
     public func resetFields() {
         profileName = ""
-        profileType = .local
+        profileType = locksRemoteType ? .remote : .local
         fileImport = false
         fileURL = nil
         remotePath = ""

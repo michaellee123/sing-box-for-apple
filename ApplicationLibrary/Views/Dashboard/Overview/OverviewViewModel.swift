@@ -12,11 +12,7 @@ public final class OverviewViewModel: BaseViewModel {
         environments.selectedProfileUpdate.send()
 
         if profile.status.isConnected {
-            do {
-                try await profile.reloadService()
-            } catch {
-                alert = AlertState(action: "reload service", error: error)
-            }
+            environments.pendingReconnect = true
         }
         reasserting = false
     }

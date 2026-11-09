@@ -4,6 +4,17 @@ import Foundation
 import Library
 import SwiftUI
 
+private extension View {
+    @ViewBuilder
+    func hideSidebarToggle() -> some View {
+        if #available(macOS 14.0, *) {
+            toolbar(removing: .sidebarToggle)
+        } else {
+            self
+        }
+    }
+}
+
 @MainActor
 public struct MainView: View {
     @Environment(\.controlActiveState) private var controlActiveState
@@ -16,6 +27,7 @@ public struct MainView: View {
     @State private var pendingSettingsPage: SettingsPage?
     @State private var didConfigureScreenshotWindow = false
     @State private var pendingScreenshotSelection: NavigationPage?
+    @State private var columnVisibility: NavigationSplitViewVisibility = .all
 
     private let profileEditor: (Binding<String>, Bool) -> AnyView = { text, isEditable in
         AnyView(ProfileEditorWrapperView(text: text, isEditable: isEditable))
@@ -40,8 +52,15 @@ public struct MainView: View {
         _viewModel = StateObject(wrappedValue: MainViewModel(selection: initialSelection))
     }
 
-    private func screenshotTargetHeight(baseHeight _: CGFloat, window: NSWindow) -> CGFloat {
-        let scale = max(window.backingScaleFactor, 1)
+    private func hideSidebarToggleItem(in window: NSWindow?) {
+        guard let toolbar = window?.toolbar else { return }
+        for index in stride(from: toolbar.items.count - 1, through: 0, by: -1)
+            where toolbar.items[index].itemIdentifier.rawValue.lowercased().contains("sidebar") {
+            toolbar.removeItem(at: index)
+        }
+    }
+
+    private func screenshotTargetHeight(baseHeight _: CGFloat, window: NSWindow) -> CGFloat {        let scale = max(window.backingScaleFactor, 1)
         if let pixelOverride = ProcessInfo.processInfo.environment["SCREENSHOT_WINDOW_PIXEL_HEIGHT"] {
             let trimmed = pixelOverride.trimmingCharacters(in: .whitespacesAndNewlines)
             if let height = Double(trimmed), height > 0 {
@@ -58,9 +77,10 @@ public struct MainView: View {
     }
 
     public var body: some View {
-        NavigationSplitView {
+        NavigationSplitView(columnVisibility: $columnVisibility) {
             SidebarView(selection: $viewModel.selection)
-                .navigationSplitViewColumnWidth(150)
+                .navigationSplitViewColumnWidth(min: 200, ideal: 220, max: 280)
+                .hideSidebarToggle()
         } detail: {
             NavigationStack(path: $settingsNavigationPath) {
                 viewModel.selection.contentView
@@ -70,8 +90,19 @@ public struct MainView: View {
             .environment(\.settingsNavigationPath, $settingsNavigationPath)
             .navigationSplitViewColumnWidth(650)
         }
-        .frame(minHeight: Variant.screenshotMode ? 0 : 500)
+        .hideSidebarToggle()
+        .frame(minWidth: Variant.screenshotMode ? 0 : 850, minHeight: Variant.screenshotMode ? 0 : 500)
+        .onChangeCompat(of: columnVisibility) { newValue in
+            if newValue != .all {
+                columnVisibility = .all
+            }
+        }
         .background(WindowAccessor { window in
+            Task { @MainActor in
+                hideSidebarToggleItem(in: window)
+                try? await Task.sleep(nanoseconds: 300_000_000)
+                hideSidebarToggleItem(in: window)
+            }
             guard Variant.screenshotMode, !didConfigureScreenshotWindow, let window else { return }
             didConfigureScreenshotWindow = true
             DispatchQueue.main.async {
@@ -107,18 +138,16 @@ public struct MainView: View {
                 ToolbarItem(placement: .navigation) {
                     disconnectButton
                 }
-            } else {
-                ToolbarItem(placement: .navigation) {
-                    StartStopButton()
-                }
             }
             if viewModel.selection == .dashboard {
                 ToolbarItem(placement: .automatic) {
                     Button {
                         showCardManagement = true
                     } label: {
-                        Label("Dashboard Items", systemImage: "square.grid.2x2")
+                        Image(systemName: "square.grid.2x2")
                     }
+                    .toolbarIconStyle()
+                    .help("管理仪表卡片")
                 }
             }
         }

@@ -1,4 +1,3 @@
-import Libbox
 import Library
 import NetworkExtension
 import SwiftUI
@@ -51,7 +50,6 @@ public struct GlobalChecksModifier: ViewModifier {
 
     @State private var alert: AlertState?
     @State private var notStarted = false
-    @Environment(\.openURL) private var openURL
 
     #if os(macOS)
         @StateObject private var wifiLocationManager = WIFIStateLocationManager()
@@ -151,7 +149,6 @@ public struct GlobalChecksModifier: ViewModifier {
             switch status {
             case .connected:
                 notStarted = false
-                await checkDeprecatedNotes()
             case .connecting:
                 notStarted = true
             case .disconnected:
@@ -175,62 +172,6 @@ public struct GlobalChecksModifier: ViewModifier {
                 alert = alertState
             }
         }
-    }
-
-    private nonisolated func checkDeprecatedNotes() async {
-        let disableWarnings = await SharedPreferences.disableDeprecatedWarnings.get()
-        guard !disableWarnings else { return }
-
-        guard let reports = try? LibboxNewStandaloneCommandClient()!.getDeprecatedNotes() else { return }
-        if reports.hasNext() {
-            await MainActor.run {
-                showNextDeprecatedNote(reports)
-            }
-        }
-    }
-
-    private func showNextDeprecatedNote(_ reports: any LibboxDeprecatedNoteIteratorProtocol) {
-        guard reports.hasNext() else { return }
-
-        let report = reports.next()!
-        let continueChain: () -> Void = {
-            Task.detached {
-                try? await Task.sleep(nanoseconds: 300 * NSEC_PER_MSEC)
-                await MainActor.run {
-                    showNextDeprecatedNote(reports)
-                }
-            }
-        }
-
-        #if os(tvOS)
-            var state = AlertState(
-                title: String(localized: "Deprecated Warning"),
-                message: report.message(),
-                dismissButton: .cancel(String(localized: "Ok"))
-            )
-            state.onDismiss = continueChain
-            alert = state
-        #else
-            if report.migrationLink.isEmpty {
-                var state = AlertState(
-                    title: String(localized: "Deprecated Warning"),
-                    message: report.message(),
-                    dismissButton: .cancel(String(localized: "Ok"))
-                )
-                state.onDismiss = continueChain
-                alert = state
-            } else {
-                alert = AlertState(
-                    title: String(localized: "Deprecated Warning"),
-                    message: report.message(),
-                    primaryButton: .default(String(localized: "Documentation")) {
-                        openURL(URL(string: report.migrationLink)!)
-                    },
-                    secondaryButton: .cancel(String(localized: "Ok")),
-                    onDismiss: continueChain
-                )
-            }
-        #endif
     }
 
     #if os(macOS)

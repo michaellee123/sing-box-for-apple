@@ -106,6 +106,8 @@ private struct LogViewContent: View {
                 Button(action: viewModel.toggleSearch) {
                     Label("Search", systemImage: "magnifyingglass")
                 }
+                .toolbarIconStyle()
+                .help("搜索日志")
             }
             Button(action: viewModel.togglePause) {
                 Label(
@@ -113,6 +115,8 @@ private struct LogViewContent: View {
                     systemImage: viewModel.isPaused ? "play.circle" : "pause.circle"
                 )
             }
+            .toolbarIconStyle()
+            .help(viewModel.isPaused ? "继续自动滚动" : "暂停自动滚动")
         }
 
         private var logMenu: AnyView {
@@ -309,6 +313,8 @@ private struct LogViewContent: View {
             } label: {
                 Label("Others", systemImage: "line.3.horizontal.circle")
             }
+            .toolbarIconStyle()
+            .help("日志选项")
         }
 
         private var logLevelPicker: some View {

@@ -255,6 +255,7 @@ public struct ToolsView: View {
             .modifier(ConnectionLifecycleObserver(profile: environments.extensionProfile, remoteServerID: environments.remoteServer?.id, onActive: { usbipProviderViewModel.start() }, onInactive: { usbipProviderViewModel.cancel() }))
         #endif
             .alert($tailscaleViewModel.alert)
+            .helpToolbarButton(Self.helpTopics)
         #if os(iOS)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -305,6 +306,13 @@ public struct ToolsView: View {
         .terminalPresentation(item: $sshPresentedSession)
         #endif
     }
+
+    private static let helpTopics: [HelpTopic] = [
+        HelpTopic("Endpoints", "配置里声明的 Tailscale、OpenConnect、OpenVPN 端点。点进去查看状态、用 Taildrop 收发文件，或者对在线的 Tailscale 节点发起 SSH。"),
+        HelpTopic("Services", "配置里声明的 USB/IP 服务，可以把远端的 USB 设备挂到本机使用。"),
+        HelpTopic("Network", "Network Quality 测当前隧道的质量；STUN Test 探测 NAT 类型和公网地址。"),
+        HelpTopic("Debug", "崩溃、内存不足和耗电报告，以及设备兼容性检查。这些只读取本机数据，查看远程设备时不会显示。"),
+    ]
 
     #if os(iOS)
         private var othersMenu: some View {

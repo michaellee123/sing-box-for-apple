@@ -226,6 +226,8 @@ public struct OOMReportListView: View {
                 } label: {
                     Label("Others", systemImage: "line.3.horizontal.circle")
                 }
+                .toolbarIconStyle()
+                .help("报告选项")
                 .alert($alert)
             }
         }

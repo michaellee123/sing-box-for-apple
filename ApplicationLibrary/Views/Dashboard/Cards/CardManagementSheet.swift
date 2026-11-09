@@ -33,6 +33,7 @@ import SwiftUI
                     }
                 }
             }
+            .background(SheetKeyWindowFix())
             .toolbar {
                 ToolbarItem(placement: .destructiveAction) {
                     Button("Reset", role: .destructive) {
@@ -216,7 +217,7 @@ import SwiftUI
                 .focused(focusedCard, equals: card)
             }
             .padding()
-            .background(Color.secondary.opacity(0.2), in: RoundedRectangle(cornerRadius: 16))
+            .glassSurface(cornerRadius: 16)
             .scaleEffect(isMoving ? 1.05 : 1.0)
             .animation(.easeInOut(duration: 0.2), value: isMoving)
         }

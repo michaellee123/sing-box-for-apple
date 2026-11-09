@@ -30,7 +30,9 @@
                     .font(.callout)
                     .foregroundStyle(.red)
                     .padding()
-                    .background(Color.red.opacity(0.08))
+                    .glassSurface(cornerRadius: 12, tint: .red)
+                    .padding(.horizontal, 12)
+                    .padding(.top, 12)
                 }
                 OpenConnectWebView(
                     endpointTag: endpointTag,

@@ -451,11 +451,7 @@ public class StatusBarController: NSObject, NSMenuDelegate {
             await SharedPreferences.selectedProfileID.set(profileID)
             environments.selectedProfileUpdate.send()
             if environments.extensionProfile?.status.isConnected == true {
-                do {
-                    try await environments.extensionProfile?.reloadService()
-                } catch {
-                    showAlert(error: error)
-                }
+                environments.pendingReconnect = true
             }
             await loadProfiles()
         }
@@ -927,11 +923,9 @@ private class StatusBarURLTestView: NSView {
 
     override func draw(_ dirtyRect: NSRect) {
         if isHighlighted {
-            NSColor.selectedMenuItemColor.setFill()
-            dirtyRect.fill()
-        } else {
-            NSColor.clear.setFill()
-            dirtyRect.fill()
+            let highlightRect = bounds.insetBy(dx: 5, dy: 1)
+            NSColor.selectedContentBackgroundColor.setFill()
+            NSBezierPath(roundedRect: highlightRect, xRadius: 6, yRadius: 6).fill()
         }
         super.draw(dirtyRect)
     }

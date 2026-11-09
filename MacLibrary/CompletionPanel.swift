@@ -33,13 +33,7 @@ final class CompletionPanelController: NSObject, NSTableViewDataSource, NSTableV
         panel.isOpaque = false
         panel.backgroundColor = .clear
 
-        let effectView = NSVisualEffectView()
-        effectView.material = .menu
-        effectView.blendingMode = .behindWindow
-        effectView.state = .active
-        effectView.wantsLayer = true
-        effectView.layer?.cornerRadius = 8
-        effectView.layer?.masksToBounds = true
+        let (effectContainer, contentHost) = Self.makeEffectContainer()
 
         tableView = NSTableView()
         let column = NSTableColumn(identifier: .init("completion"))
@@ -63,20 +57,42 @@ final class CompletionPanelController: NSObject, NSTableViewDataSource, NSTableV
         scrollView.automaticallyAdjustsContentInsets = false
         scrollView.translatesAutoresizingMaskIntoConstraints = false
 
-        effectView.addSubview(scrollView)
+        contentHost.addSubview(scrollView)
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: effectView.topAnchor, constant: Self.contentPadding),
-            scrollView.bottomAnchor.constraint(equalTo: effectView.bottomAnchor, constant: -Self.contentPadding),
-            scrollView.leadingAnchor.constraint(equalTo: effectView.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: effectView.trailingAnchor),
+            scrollView.topAnchor.constraint(equalTo: contentHost.topAnchor, constant: Self.contentPadding),
+            scrollView.bottomAnchor.constraint(equalTo: contentHost.bottomAnchor, constant: -Self.contentPadding),
+            scrollView.leadingAnchor.constraint(equalTo: contentHost.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: contentHost.trailingAnchor),
         ])
-        panel.contentView = effectView
+        panel.contentView = effectContainer
 
         super.init()
         tableView.dataSource = self
         tableView.delegate = self
         tableView.target = self
         tableView.action = #selector(clickRow)
+    }
+
+    private static func makeEffectContainer() -> (container: NSView, contentHost: NSView) {
+        if #available(macOS 26.0, *) {
+            let glassView = NSGlassEffectView()
+            glassView.style = .regular
+            glassView.cornerRadius = 10
+            if #available(macOS 27.0, *) {
+                glassView.effectIsInteractive = true
+            }
+            let host = NSView()
+            glassView.contentView = host
+            return (glassView, host)
+        }
+        let effectView = NSVisualEffectView()
+        effectView.material = .menu
+        effectView.blendingMode = .behindWindow
+        effectView.state = .active
+        effectView.wantsLayer = true
+        effectView.layer?.cornerRadius = 10
+        effectView.layer?.masksToBounds = true
+        return (effectView, effectView)
     }
 
     func show(items: [CompletionItem], caretRect: NSRect, parentWindow: NSWindow) {

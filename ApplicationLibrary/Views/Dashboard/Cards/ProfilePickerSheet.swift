@@ -181,7 +181,7 @@ struct ProfilePickerSheet: View {
                             }
                         }
                         .padding()
-                        .background(Color(NSColor.controlBackgroundColor))
+                        .glassBar()
                     }
                 }
                 .sheet(item: $profileToEdit) { profile in
@@ -698,7 +698,7 @@ private struct ProfilePickerRow: View {
                 .focused(focusedProfileID, equals: profile.id)
             }
             .padding()
-            .background(Color.secondary.opacity(0.2), in: RoundedRectangle(cornerRadius: 16))
+            .glassSurface(cornerRadius: 16)
             .scaleEffect(isMoving ? 1.05 : 1.0)
             .animation(.easeInOut(duration: 0.2), value: isMoving)
         }
@@ -1149,7 +1149,7 @@ private struct ProfilePickerRow: View {
             .frame(width: width)
             .padding(.horizontal, 12)
             .padding(.vertical, 8)
-            .background(.background, in: RoundedRectangle(cornerRadius: 8))
+            .glassSurface(cornerRadius: 8)
         }
     #endif
 }

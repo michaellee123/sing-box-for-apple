@@ -187,6 +187,7 @@ public class ExtensionProfile: ObservableObject {
         }
         guard let manager else { return }
         try await fetchProfile()
+        manager.localizedDescription = Self.vpnDisplayName
         manager.isEnabled = true
         let alwaysOn = await SharedPreferences.alwaysOn.get()
         let onDemandEnabled = await SharedPreferences.onDemandEnabled.get()
@@ -202,6 +203,7 @@ public class ExtensionProfile: ObservableObject {
         }
         await applyProtocolConfiguration()
         try await manager.saveToPreferences()
+        try await manager.loadFromPreferences()
         let options = try await prepareStartOptions()
         try manager.connection.startVPNTunnel(options: options)
     }
@@ -248,7 +250,26 @@ public class ExtensionProfile: ObservableObject {
         }
 
         let configContent = try await profile.readAsync()
-        options["configContent"] = NSString(string: configContent)
+        let smartPolicy = await SmartGroupStore.policy(for: profile.mustID)
+        let advancedPolicy = await AdvancedRouteStore.current()
+        let patchedConfig = ProfileConfigPatcher.apply(
+            config: configContent,
+            policy: smartPolicy.hasRoutingEffect ? smartPolicy : nil,
+            advanced: advancedPolicy
+        )
+        #if !os(tvOS)
+            let includeAllNetworks = await SharedPreferences.includeAllNetworks.get()
+            let normalizedConfig = ProfileConfigPatcher.rebindOccupiedListeners(
+                ProfileConfigPatcher.normalizeTunStack(patchedConfig, includeAllNetworks: includeAllNetworks)
+            )
+        #else
+            let normalizedConfig = patchedConfig
+        #endif
+        let startedConfig = ProfileConfigPatcher.applyClashMode(
+            normalizedConfig,
+            preferred: await SharedPreferences.clashMode.get()
+        )
+        options["configContent"] = NSString(string: startedConfig)
 
         #if os(macOS)
             options["oomKillerEnabled"] = await NSNumber(value: SharedPreferences.oomKillerEnabled.get())
@@ -326,16 +347,31 @@ public class ExtensionProfile: ObservableObject {
         if managers.isEmpty {
             return nil
         }
-        let profile = ExtensionProfile(managers[0])
+        let manager = managers[0]
+        let profile = ExtensionProfile(manager)
+        if manager.localizedDescription != vpnDisplayName {
+            manager.localizedDescription = vpnDisplayName
+            if profile.status == .disconnected {
+                try? await manager.saveToPreferences()
+            }
+        }
         if profile.status == .disconnected {
             schedulePromoteOOMDraft()
         }
         return profile
     }
 
+    private static var vpnDisplayName: String {
+        #if os(macOS)
+            "SFM-Auto"
+        #else
+            Variant.applicationName
+        #endif
+    }
+
     public static func install() async throws {
         let manager = NETunnelProviderManager()
-        manager.localizedDescription = Variant.applicationName
+        manager.localizedDescription = vpnDisplayName
         let tunnelProtocol = NETunnelProviderProtocol()
         if Variant.useSystemExtension {
             tunnelProtocol.providerBundleIdentifier = AppConfiguration.systemExtensionBundleID

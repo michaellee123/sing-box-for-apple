@@ -33,16 +33,25 @@ import SwiftUI
             content()
                 .frame(maxWidth: .infinity)
                 .frame(height: TabViewBottomAccessoryMetrics.height)
-                .background(
-                    .bar,
-                    in: RoundedRectangle(
-                        cornerRadius: TabViewBottomAccessoryMetrics.cornerRadius,
-                        style: .continuous
-                    )
-                )
+                .modifier(AccessoryBackground(cornerRadius: TabViewBottomAccessoryMetrics.cornerRadius))
                 .padding(.horizontal, TabViewBottomAccessoryMetrics.horizontalPadding)
                 .padding(.top, TabViewBottomAccessoryMetrics.topPadding)
                 .padding(.bottom, TabViewBottomAccessoryMetrics.bottomPadding)
+        }
+    }
+
+    private struct AccessoryBackground: ViewModifier {
+        let cornerRadius: CGFloat
+
+        func body(content: Content) -> some View {
+            if #available(iOS 26.0, *) {
+                content.glassEffect(.regular, in: .rect(cornerRadius: cornerRadius, style: .continuous))
+            } else {
+                content.background(
+                    .bar,
+                    in: RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                )
+            }
         }
     }
 

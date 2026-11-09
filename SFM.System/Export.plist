@@ -8,10 +8,10 @@
 	<string>developer-id</string>
 	<key>provisioningProfiles</key>
 	<dict>
-		<key>io.nekohasekai.sfamt.standalone</key>
-		<string>XC io nekohasekai sfamt standalone</string>
-		<key>io.nekohasekai.sfamt.system</key>
-		<string>XC io nekohasekai sfamt system</string>
+		<key>net.5itu.sfamt.standalone</key>
+		<string></string>
+		<key>net.5itu.sfamt.system</key>
+		<string></string>
 	</dict>
 </dict>
 </plist>

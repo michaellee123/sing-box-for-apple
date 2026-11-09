@@ -71,7 +71,7 @@
 	</dict>
 	<key>NSUbiquitousContainers</key>
 	<dict>
-		<key>iCloud.io.nekohasekai.sfamt</key>
+		<key>iCloud.$(BASE_PACKAGE_IDENTIFIER)</key>
 		<dict>
 			<key>NSUbiquitousContainerIsDocumentScopePublic</key>
 			<true/>

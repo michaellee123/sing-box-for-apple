@@ -219,12 +219,23 @@ public struct SettingView: View {
                 }
             #endif
         }
+        .helpToolbarButton(Self.helpTopics)
         #if os(macOS)
         .formNavigationDestination(for: SettingsPage.self) { page in
             Self.destinationView(for: page)
         }
         #endif
     }
+
+    private static let helpTopics: [HelpTopic] = [
+        HelpTopic("App", "应用本身的外观与行为选项。"),
+        HelpTopic("Core", "sing-box 核心相关的设置与日志。"),
+        HelpTopic("Packet Tunnel", "隧道扩展的运行参数。改动后需要重新连接才会生效。"),
+        HelpTopic("On Demand Rules", "按条件自动连接或断开隧道。"),
+        HelpTopic("Profile Override", "在配置之上做本地覆盖修改，不用改订阅原文。"),
+        HelpTopic("Remote Control", "配对其它设备，远程查看和控制它们的隧道。"),
+        HelpTopic("About", "文档、源码和评分入口。"),
+    ]
 
     #if !os(tvOS)
         private var remoteControlLink: some View {

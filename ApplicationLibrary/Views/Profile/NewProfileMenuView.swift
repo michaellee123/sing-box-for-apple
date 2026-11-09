@@ -18,6 +18,7 @@ public struct NewProfileMenuView: View {
     #endif
     #if os(macOS)
         @State private var showNewProfile = false
+        @State private var showRemoteURLImport = false
     #endif
     private var onComplete: (() -> Void)?
 
@@ -60,7 +61,7 @@ public struct NewProfileMenuView: View {
                         }
                     }
                     .padding()
-                    .background(Color(NSColor.controlBackgroundColor))
+                    .glassBar()
                 }
             }
             .alert($alert)
@@ -73,6 +74,13 @@ public struct NewProfileMenuView: View {
             }
             .sheet(isPresented: $showNewProfile) {
                 NewProfileView(onSuccess: { profile in
+                    await SharedPreferences.selectedProfileID.set(profile.mustID)
+                    complete()
+                })
+                .environmentObject(environments)
+            }
+            .sheet(isPresented: $showRemoteURLImport) {
+                NewProfileView(locksRemoteType: true, onSuccess: { profile in
                     await SharedPreferences.selectedProfileID.set(profile.mustID)
                     complete()
                 })
@@ -185,11 +193,25 @@ public struct NewProfileMenuView: View {
 
                 #if os(macOS)
                     FormButton {
+                        showRemoteURLImport = true
+                    } label: {
+                        Label("从 URL 导入", systemImage: "link.badge.plus")
+                    }
+                    FormButton {
                         showNewProfile = true
                     } label: {
                         Label("Create Manually", systemImage: "square.and.pencil")
                     }
                 #else
+                    FormNavigationLink {
+                        NewProfileView(locksRemoteType: true, onSuccess: { [$manualCreateSucceeded] profile in
+                            await SharedPreferences.selectedProfileID.set(profile.mustID)
+                            $manualCreateSucceeded.wrappedValue = true
+                        })
+                        .environmentObject(environments)
+                    } label: {
+                        Label("从 URL 导入", systemImage: "link.badge.plus")
+                    }
                     FormNavigationLink {
                         // Capturing anything that holds the sheet's DismissAction here makes
                         // SwiftUI on iOS 17 loop forever laying the pushed view out.

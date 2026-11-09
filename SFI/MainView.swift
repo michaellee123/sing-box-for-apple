@@ -53,9 +53,6 @@ struct MainView: View {
 
     private var sidebarPages: [NavigationPage] {
         var pages: [NavigationPage] = [.dashboard]
-        if buttonState.showGroupsButton {
-            pages.append(.groups)
-        }
         if buttonState.showConnectionsButton {
             pages.append(.connections)
         }
@@ -391,7 +388,13 @@ struct MainView: View {
                 Task { @MainActor in updateButtonVisibility() }
             }
             .sheet(isPresented: $showGroups) {
-                GroupsSheetContent()
+                if environments.remoteServer != nil {
+                    GroupsSheetContent()
+                } else {
+                    SheetContent("智能分组") {
+                        SmartGroupManageView()
+                    }
+                }
             }
             .sheet(isPresented: $showConnections) {
                 ConnectionsSheetContent()
